@@ -1,3 +1,14 @@
+// const isStag = process.env.NODE_ENV === 'staging'
+// const isProd = process.env.NODE_ENV === 'production'
+
+// let baseURL = 'http://localhost:3002'
+// if (isStag) {
+//   baseURL = 'http://159.89.163.129:3005'
+// }
+// if (isProd) {
+//   baseURL = 'https://soapi.in:3001'
+// }
+
 module.exports = {
   mode: 'universal',
   /*
@@ -51,7 +62,11 @@ module.exports = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'https://soapi.in:3001',
+    debug: true
+    // debug: !isProd
+  },
   /*
    ** Build configuration
    */

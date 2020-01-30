@@ -1,5 +1,5 @@
 <template>
   <div>
-    Landing Page here
+    Im header
   </div>
 </template>
