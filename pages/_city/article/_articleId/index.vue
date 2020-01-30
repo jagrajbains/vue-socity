@@ -11,6 +11,7 @@ export default {
       articleData: null
     }
   },
+  middleware: 'cityCheck',
   async asyncData({ params, $axios, error }) {
     try {
       const { city, articleId } = params
