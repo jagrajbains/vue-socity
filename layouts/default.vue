@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="overFXN">
     <Header />
     <nuxt />
   </div>
