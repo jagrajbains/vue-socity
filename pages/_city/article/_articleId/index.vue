@@ -31,15 +31,15 @@
             <img :src="publisherData.cloudProfile" class="author-img" />
             <div class="author-info-text">
               <span class="author-name">{{ publisherData.displayName }}</span>
-              <span class="publish-date">{{
-                getTimeAgo(articleData.updatedAt)
-              }}</span>
+              <span class="publish-date">
+                {{ getTimeAgo(articleData.updatedAt) }}
+              </span>
             </div>
           </div>
           <div class="follow-btn">Follow</div>
         </div>
         <!-- introduction -->
-        <div v-html="articleData.introduction" class="article-content"></div>
+        <div v-html="articleIntroduction" class="article-content"></div>
         <!-- share section -->
         <div>
           <div>Share on facebook</div>
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import $ from 'cheerio'
 import { getTimeAgo } from '~/utils'
 
 export default {
@@ -72,6 +73,25 @@ export default {
     },
     headerImageURL() {
       return `https://res.cloudinary.com/purnesh/image/upload/w_1080,f_auto,q_auto:eco,c_limit/${this.articleData.imageSlug}`
+    },
+    articleIntroduction() {
+      const container = $.parseHTML(
+        `<div>${this.articleData.introduction}</div>`
+      )
+      $(container[0])
+        .find('img')
+        .each(function(idx, img) {
+          const imageParentInnerHTML = $(img)
+            .parent()
+            .html()
+          $(img).parent().replaceWith(`
+      <div class="blur-main-content-img-container">
+      <img src="${img.attribs.src}" class="blur-main-content-img" />
+      <div class="main-content-img-container">${imageParentInnerHTML}</div>
+      </div>
+      `)
+        })
+      return $(container).html()
     }
   },
   middleware: 'cityCheck',
