@@ -3,12 +3,13 @@
     <div
       v-for="city in cities"
       :key="city.key"
-      class="col-md-1 text-center city-name"
+      class="col-md-1 text-center city-name city-choose"
     >
-      <div>
-        <img :src="city.img" class="city-img" />
+      <div class="current-city">
+        <img :src="city.img" :class="`city-img ${city.key}`" />
         <p>{{ city.name }}</p>
       </div>
+      <div v-if="city.key === $route.params.city"><p>Current City</p></div>
     </div>
   </div>
 </template>
@@ -16,12 +17,6 @@
 <script>
 import constants from '~/constants'
 export default {
-  props: {
-    toggleDropdown: {
-      type: Function,
-      required: true
-    }
-  },
   data() {
     return {
       cities: constants.CITIES
@@ -41,7 +36,7 @@ export default {
       }
 
       if (!e.target.closest('#dropdown')) {
-        this.toggleDropdown()
+        this.$emit('closeDropdown')
       }
     }
   }
@@ -51,12 +46,12 @@ export default {
 <style scoped>
 .dropdown {
   position: absolute;
-  width: 100%;
+  width: 88%;
   border: 1px solid black;
   background-color: white;
   z-index: 9999;
-  top: 46px;
-  left: 80px;
+  top: 65px;
+  left: 75px;
   border-radius: 5px;
 }
 .city-name {
@@ -66,5 +61,21 @@ export default {
 .city-img {
   box-sizing: border-box;
   height: 31px;
+  padding-top: 15px;
+}
+.city-choose {
+  box-sizing: border-box;
+  width: 9.09%;
+  padding: 1% 1% 3%;
+  height: 98px;
+}
+.srinagar {
+  width: 55px;
+  height: auto;
+  padding-top: 12px;
+}
+.current-city {
+  box-sizing: border-box;
+  border: 0.75px solid rgb(147, 137, 143);
 }
 </style>
