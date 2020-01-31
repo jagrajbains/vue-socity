@@ -1,18 +1,5 @@
 const CITIES = [
   {
-    name: 'Delhi',
-    key: 'delhi',
-    img:
-      'https://res.cloudinary.com/purnesh/image/upload/v1524122907/images_2Fdelhi_kx5pck.png',
-    metaTitle: 'Wanna Know Everything Happening In Delhi? Check Us Out!',
-    metaDescription:
-      "From street food to the hottest new eateries, from trendy boutiques to the most happening events, we'll tell you everything you need to know about Delhi.",
-    metaImage:
-      'https://res.cloudinary.com/purnesh/image/upload/w_1080,f_auto,q_auto:eco,c_limit/delhi_il3d6k.jpg',
-    metaKeywords:
-      'Delhi, sodelhi, Food, Restaurants, Eateries, Bars,Cafes, Best, Buzzing, Happening, Events, City, Entertainment, Music, Comedy, Style, Fashion, Stores, Shopping, ,Travel, Resort, Getaway, Weekend, Homestays, Airbnb'
-  },
-  {
     name: 'Agra',
     key: 'agra',
     img:

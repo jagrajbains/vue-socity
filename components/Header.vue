@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row header-container">
-      <div class="col-lg-10 left-side">
+      <div class="col-lg-9 left-side">
         <div @click="$router.back()" class="back-btn">
           <img src="../assets/arrow.svg" />
         </div>
@@ -12,15 +12,15 @@
         <div id="arrow" @click="toggleDropdown">
           <img src="../assets/arrow.svg" />
         </div>
-        <transition name="fade">
-          <Dropdown v-if="showDropdown" :toggleDropdown="toggleDropdown" />
-        </transition>
       </div>
-      <div class="col-lg-2 right-side">
+      <div class="col-lg-3 right-side">
         <div class="write-a-post">Write A Post</div>
         <div class="search"><img src="../assets/search.svg" /></div>
       </div>
     </div>
+    <transition name="fade">
+      <Dropdown v-if="showDropdown" v-on:closeDropdown="toggleDropdown" />
+    </transition>
   </div>
 </template>
 <script>
@@ -76,7 +76,9 @@ export default {
 .back-btn {
   cursor: pointer;
   width: 20px;
-  height: 17px;
+  height: 14px;
+  position: relative;
+  top: 10px;
 }
 .back-btn img {
   transform: rotate(180deg);
@@ -85,13 +87,14 @@ export default {
 .city-names {
   position: relative;
   left: 32px;
-  top: 3px;
+  align-self: center;
+  font-size: 16px;
 }
 #arrow {
   cursor: pointer;
   position: relative;
   left: 36px;
-  top: 3px;
+  align-self: center;
 }
 #arrow img {
   width: 12px;
@@ -100,21 +103,30 @@ export default {
 }
 .write-a-post {
   cursor: pointer;
+  font-size: 14px;
+}
+.write-a-post:hover {
+  color: #686868;
 }
 .search {
   cursor: pointer;
 }
+.search:hover {
+  color: #686868;
+}
 .search img {
-  width: 20px;
+  width: 16px;
 }
 .logo {
   position: relative;
   left: 25px;
+  height: 45px;
+  width: 41px;
 }
 .logo img {
-  height: 30px;
+  height: 45px;
   cursor: pointer;
-  width: 30px;
+  width: 40px;
   object-fit: contain;
 }
 </style>
