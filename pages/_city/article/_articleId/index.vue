@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="position: relative; top: 70px">
     <div style="width: 100%; position: relative; height: 560px; margin: 5px 0;">
       <img
         :src="headerImageURL"
