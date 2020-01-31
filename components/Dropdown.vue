@@ -5,11 +5,16 @@
       :key="city.key"
       class="col-md-1 text-center city-name city-choose"
     >
-      <div class="current-city">
+      <div
+        :class="city.key === $route.params.city ? 'current-city' : ''"
+        @click="handleCityClick(city.key)"
+      >
         <img :src="city.img" :class="`city-img ${city.key}`" />
         <p>{{ city.name }}</p>
       </div>
-      <div v-if="city.key === $route.params.city"><p>Current City</p></div>
+      <div v-if="city.key === $route.params.city">
+        <p class="current-text">Current City</p>
+      </div>
     </div>
   </div>
 </template>
@@ -38,6 +43,9 @@ export default {
       if (!e.target.closest('#dropdown')) {
         this.$emit('closeDropdown')
       }
+    },
+    handleCityClick(city) {
+      this.$emit('changeCity', city)
     }
   }
 }
@@ -57,11 +65,12 @@ export default {
 .city-name {
   font-size: 14px;
   margin-top: 15px;
+  cursor: pointer;
 }
 .city-img {
   box-sizing: border-box;
-  height: 31px;
-  padding-top: 15px;
+  height: 30px;
+  padding-top: 4px;
 }
 .city-choose {
   box-sizing: border-box;
@@ -75,7 +84,15 @@ export default {
   padding-top: 12px;
 }
 .current-city {
-  box-sizing: border-box;
   border: 0.75px solid rgb(147, 137, 143);
+  box-sizing: border-box;
+  height: 55px;
+}
+.current-text {
+  font-size: 12px;
+}
+a {
+  text-decoration: none;
+  color: black;
 }
 </style>
