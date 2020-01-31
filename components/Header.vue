@@ -19,7 +19,11 @@
       </div>
     </div>
     <transition name="fade">
-      <Dropdown v-if="showDropdown" v-on:closeDropdown="toggleDropdown" />
+      <Dropdown
+        v-if="showDropdown"
+        v-on:closeDropdown="toggleDropdown"
+        v-on:changeCity="changeCity"
+      />
     </transition>
   </div>
 </template>
@@ -43,9 +47,20 @@ export default {
       return city ? city.name : 'Delhi'
     }
   },
+  watch: {
+    $route: {
+      handler() {
+        this.city = this.$route.params.city
+      }
+    }
+  },
   methods: {
     toggleDropdown() {
       this.showDropdown = !this.showDropdown
+    },
+    changeCity(city) {
+      this.toggleDropdown()
+      this.$router.push(`/${city}`)
     }
   }
 }
@@ -88,7 +103,7 @@ export default {
   position: relative;
   left: 32px;
   align-self: center;
-  font-size: 16px;
+  font-size: 14px;
 }
 #arrow {
   cursor: pointer;
