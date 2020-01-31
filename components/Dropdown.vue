@@ -53,13 +53,15 @@ export default {
   position: absolute;
   width: 100%;
   border: 1px solid black;
-  background-color: grey;
+  background-color: white;
   z-index: 9999;
   top: 46px;
   left: 80px;
+  border-radius: 5px;
 }
 .city-name {
   font-size: 14px;
+  margin-top: 15px;
 }
 .city-img {
   box-sizing: border-box;
