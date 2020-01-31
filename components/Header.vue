@@ -88,6 +88,11 @@ export default {
   align-self: center;
 }
 .header-container {
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 1;
+  background-color: white;
   height: 70px;
   margin-right: 0px;
   margin-left: 0px;
