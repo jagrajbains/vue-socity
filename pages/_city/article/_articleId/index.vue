@@ -78,6 +78,7 @@ export default {
       return `https://res.cloudinary.com/purnesh/image/upload/w_1080,f_auto,q_auto:eco,c_limit/${this.articleData.imageSlug}`
     }
   },
+  middleware: 'cityCheck',
   async asyncData({ params, $axios, error }) {
     try {
       const { city, articleId } = params
