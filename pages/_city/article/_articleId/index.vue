@@ -1,47 +1,45 @@
 <template>
   <div>
-    <div
-      style="text-align: center; width: 100%; position: relative; height: 560px; border: 1px solid black"
-      class="header-image-parallax"
-    >
+    <div style="width: 100%; position: relative; height: 560px; margin: 5px 0;">
       <img
         :src="headerImageURL"
         :style="{
-          filter: 'blur(4px)',
+          filter: 'blur(6px)',
           width: '100%',
           height: '100%',
           objectFit: 'fill'
         }"
       />
-      <div
-        class="header-img"
-        style="position: absolute; top: 0; left: 50%; transform: translate(-50%, 0);"
-      >
-        <img :src="headerImageURL" />
+      <div class="header-img-container">
+        <img :src="headerImageURL" class="header-img" />
       </div>
     </div>
     <!-- article container -->
-    <div class="row">
+    <div class="row article-container">
       <!-- stuff to the left -->
       <!-- TODO: toggle display property -->
-      <div :class="`col-lg-2 col-md-2`">
-        Im on left
-      </div>
+      <div :class="`col-lg-3 col-md-3`"></div>
       <!-- article body container -->
-      <div class="col-lg-8 col-md-8 col-sm-12">
+      <div class="col-lg-6 col-md-6 col-sm-12">
         <!-- title container -->
-        <div>
-          <h1>{{ articleData.title }}</h1>
+        <div class="title-container">
+          <p class="title-text">{{ articleData.title }}</p>
         </div>
         <!-- author info -->
-        <div style="border-bottom: 1px solid black">
-          <img :src="publisherData.cloudProfile" width="50" height="50" />
-          <span>{{ publisherData.displayName }}</span>
-          <span>Last updated: {{ getTimeAgo(articleData.updatedAt) }}</span>
-          <button>Follow</button>
+        <div class="author-info-container">
+          <div class="author-info">
+            <img :src="publisherData.cloudProfile" class="author-img" />
+            <div class="author-info-text">
+              <span class="author-name">{{ publisherData.displayName }}</span>
+              <span class="publish-date">{{
+                getTimeAgo(articleData.updatedAt)
+              }}</span>
+            </div>
+          </div>
+          <div class="follow-btn">Follow</div>
         </div>
         <!-- introduction -->
-        <div v-html="articleData.introduction"></div>
+        <div v-html="articleData.introduction" class="article-content"></div>
         <!-- share section -->
         <div>
           <div>Share on facebook</div>
@@ -51,9 +49,7 @@
         <div>Next article</div>
       </div>
       <!-- stuff to the right -->
-      <div class="col-lg-2 col-md-2">
-        Im on the right
-      </div>
+      <div class="col-lg-3 col-md-3"></div>
     </div>
   </div>
 </template>
@@ -97,3 +93,89 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.header-img-container {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 100%;
+}
+.header-img {
+  height: 568px;
+}
+.article-container {
+  box-shadow: 0 -5px 5px -5px #000;
+  margin-top: 6px;
+}
+.title-container {
+  margin-top: 72px;
+}
+
+.title-text {
+  font-family: 'Crimson Pro', serif;
+  font-size: 40px;
+  font-weight: bolder;
+  line-height: 55px;
+  margin-bottom: 10px;
+  color: #404040;
+}
+
+.author-info-container {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Open Sans', serif;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+}
+
+.author-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 18px;
+}
+
+.author-info-text {
+  color: #404040;
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  margin-left: 21px;
+  line-height: 2px;
+}
+
+.author-name {
+  font-weight: bold;
+  line-height: 2.5;
+}
+
+.publish-date {
+  opacity: 0.4;
+}
+
+.follow-btn {
+  font-size: 18px;
+  color: #13cb86;
+  padding: 13px 38px;
+  border: 1px solid #13cb86;
+  border-radius: 2px;
+  margin-top: 18px;
+}
+
+.article-content {
+  margin-top: 15px;
+  font-family: 'Open Sans', serif;
+  line-height: 30px;
+  color: #0a0a0a;
+}
+</style>

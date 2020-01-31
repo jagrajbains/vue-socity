@@ -6,7 +6,9 @@
           <img src="../assets/arrow.svg" />
         </div>
         <div class="logo">
-          <nuxt-link to="/"><img src="../assets/so_logo.svg"/></nuxt-link>
+          <nuxt-link to="/">
+            <img src="../assets/so_logo.svg" />
+          </nuxt-link>
         </div>
         <div class="city-names">{{ cityName }}</div>
         <div id="arrow" @click="toggleDropdown">
@@ -15,7 +17,9 @@
       </div>
       <div class="col-lg-3 right-side">
         <div class="write-a-post">Write A Post</div>
-        <div class="search"><img src="../assets/search.svg" /></div>
+        <div class="search">
+          <img src="../assets/search.svg" />
+        </div>
       </div>
     </div>
     <transition name="fade">
@@ -87,6 +91,7 @@ export default {
   height: 70px;
   margin-right: 0px;
   margin-left: 0px;
+  box-shadow: 0px 0px 3px 0 #000000;
 }
 .back-btn {
   cursor: pointer;
