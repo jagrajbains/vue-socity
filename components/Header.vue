@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row header-container" ref="headerComponent">
+    <div ref="headerComponent" class="row header-container">
       <div class="col-lg-9 left-side">
         <div @click="$router.back()" class="back-btn">
           <img src="../assets/arrow.svg" />
