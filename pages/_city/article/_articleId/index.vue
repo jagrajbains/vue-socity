@@ -1,15 +1,7 @@
 <template>
   <div>
-    <div style="width: 100%; position: relative; height: 560px; margin: 5px 0;">
-      <img
-        :src="headerImageURL"
-        :style="{
-          filter: 'blur(6px)',
-          width: '100%',
-          height: '100%',
-          objectFit: 'fill'
-        }"
-      />
+    <div class="main-blur-img-container">
+      <img :src="headerImageURL" class="main-blur-img" />
       <div class="header-img-container">
         <img :src="headerImageURL" class="header-img" />
       </div>
@@ -114,7 +106,44 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+.blur-main-content-img-container {
+  width: 735px;
+  position: relative;
+  height: 300px;
+  margin: 50px 0px;
+  overflow: hidden;
+}
+.blur-main-content-img {
+  filter: blur(15px) brightness(90%);
+  width: 100%;
+  height: 100%;
+}
+.main-content-img-container {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 500px;
+}
+.main-content-img-container img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+.main-blur-img {
+  filter: blur(6px);
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+}
+.main-blur-img-container {
+  width: 100%;
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+}
 .header-img-container {
   position: absolute;
   top: -4px;
@@ -124,11 +153,10 @@ export default {
   height: 100%;
 }
 .header-img {
-  height: 568px;
+  height: 500px;
 }
 .article-container {
   box-shadow: 0 -5px 5px -5px #000;
-  margin-top: 6px;
 }
 .title-container {
   margin-top: 72px;
