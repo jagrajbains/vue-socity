@@ -58,6 +58,9 @@ export default {
       }
     }
   },
+  mounted() {
+    // window.addEventListener("scroll",)
+  },
   methods: {
     toggleDropdown() {
       this.showDropdown = !this.showDropdown
@@ -88,8 +91,6 @@ export default {
   align-self: center;
 }
 .header-container {
-  position: fixed;
-  top: 0px;
   width: 100%;
   z-index: 1;
   background-color: white;
