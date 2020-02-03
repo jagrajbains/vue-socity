@@ -1,7 +1,9 @@
 <template>
   <div class="overFXN">
     <Header />
-    <nuxt />
+    <div class="main-body-wrapper">
+      <nuxt />
+    </div>
   </div>
 </template>
 

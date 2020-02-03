@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row header-container">
+    <div class="row header-container" ref="headerComponent">
       <div class="col-lg-9 left-side">
         <div @click="$router.back()" class="back-btn">
           <img src="../assets/arrow.svg" />
@@ -59,7 +59,12 @@ export default {
     }
   },
   mounted() {
-    // window.addEventListener("scroll",)
+    this.mainBodyWrapper = document.querySelector('.main-body-wrapper')
+    this.initialHeaderOffset = this.$refs.headerComponent.offsetTop
+
+    window.addEventListener('scroll', this.handleScroll)
+
+    this.handleScroll()
   },
   methods: {
     toggleDropdown() {
@@ -68,6 +73,16 @@ export default {
     changeCity(city) {
       this.toggleDropdown()
       this.$router.push(`/${city}`)
+    },
+    handleScroll() {
+      if (window.pageYOffset <= this.initialHeaderOffset) {
+        this.$refs.headerComponent.classList.remove('sticky')
+        this.mainBodyWrapper.classList.remove('pt-75')
+      }
+      if (window.pageYOffset > this.$refs.headerComponent.offsetTop) {
+        this.$refs.headerComponent.classList.add('sticky')
+        this.mainBodyWrapper.classList.add('pt-75')
+      }
     }
   }
 }
@@ -154,5 +169,9 @@ export default {
   cursor: pointer;
   width: 40px;
   object-fit: contain;
+}
+.sticky {
+  position: fixed;
+  top: 0;
 }
 </style>
