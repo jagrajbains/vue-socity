@@ -100,7 +100,6 @@ export default {
     )
     for (let i = 0; i < imagesArr.length; i++) {
       const element = imagesArr[i]
-      console.log(element.children[0].naturalWidth)
       if (
         element.children[0].naturalWidth > element.children[0].naturalHeight
       ) {
