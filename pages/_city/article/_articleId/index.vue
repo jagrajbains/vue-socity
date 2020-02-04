@@ -33,12 +33,26 @@
         <!-- introduction -->
         <div v-html="articleIntroduction" class="article-content"></div>
         <!-- share section -->
-        <div>
-          <div>Share on facebook</div>
-          <div>Bookmark this article</div>
+        <div class="share-container">
+          <div class="fb-container">
+            <img src="../../../../assets/fb-icon.svg" />
+            <p>Share on facebook</p>
+          </div>
+          <div class="bkm-container">
+            <img src="../../../../assets/fb-icon.svg" />
+            <p>Bookmark this article</p>
+          </div>
         </div>
         <!-- Next article -->
-        <div>Next article</div>
+        <div>
+          <div class="article-border"></div>
+          <div class="article-border-pointer"></div>
+          <div
+            style="display: flex; justify-content: center; position: relative; top: 25px;"
+          >
+            <p class="next-article">NEXT ARTICLE</p>
+          </div>
+        </div>
       </div>
       <!-- stuff to the right -->
       <div class="col-lg-3 col-md-3"></div>
@@ -225,5 +239,66 @@ export default {
   font-family: 'Open Sans', serif;
   line-height: 30px;
   color: #0a0a0a;
+  border-bottom: 1px solid lightgray;
+}
+.article-border {
+  width: auto;
+  height: 5px;
+  background-color: #13cb86;
+}
+.article-border-pointer {
+  width: 30px;
+  height: 30px;
+  background-color: #13cb86;
+  clip-path: polygon(52% 50%, 100% 50%, 50% 100%, 0% 50%);
+  position: absolute;
+  bottom: 40px;
+  left: 48%;
+}
+.next-article {
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 3.33;
+  letter-spacing: normal;
+  color: #404040;
+}
+.fb-container {
+  width: 229px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: #1976d2;
+  display: flex;
+  justify-content: space-evenly;
+}
+.fb-container p {
+  margin: 0px !important;
+  align-self: center;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.bkm-container {
+  width: 261px;
+  height: 48px;
+  border-radius: 24px;
+  background-color: #393939;
+  display: flex;
+  justify-content: space-evenly;
+}
+.bkm-container p {
+  margin: 0px !important;
+  align-self: center;
+  color: white;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+.share-container {
+  display: flex;
+  padding-top: 35px;
+  padding-bottom: 65px;
+  justify-content: space-evenly;
 }
 </style>
