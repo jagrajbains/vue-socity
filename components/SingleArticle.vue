@@ -1,15 +1,7 @@
 <template>
   <div ref="article" class="single-article">
-    <div style="width: 100%; position: relative; height: 560px; margin: 5px 0;">
-      <img
-        :src="headerImageURL"
-        :style="{
-          filter: 'blur(6px)',
-          width: '100%',
-          height: '100%',
-          objectFit: 'fill'
-        }"
-      />
+    <div class="main-blur-img-container">
+      <img :src="headerImageURL" class="main-blur-img" />
       <div class="header-img-container">
         <img :src="headerImageURL" class="header-img" />
       </div>
@@ -31,9 +23,9 @@
             <img :src="publisherData.cloudProfile" class="author-img" />
             <div class="author-info-text">
               <span class="author-name">{{ publisherData.displayName }}</span>
-              <span class="publish-date">{{
-                getTimeAgo(articleData.updatedAt)
-              }}</span>
+              <span class="publish-date">
+                {{ getTimeAgo(articleData.updatedAt) }}
+              </span>
             </div>
           </div>
           <div class="follow-btn">Follow</div>
@@ -102,6 +94,20 @@ export default {
   mounted() {
     if (this.$props.isMainArticle) {
       window.addEventListener('scroll', this.handleScroll)
+    }
+    const imagesArr = document.getElementsByClassName(
+      'main-content-img-container'
+    )
+    for (let i = 0; i < imagesArr.length; i++) {
+      const element = imagesArr[i]
+      console.log(element.children[0].naturalWidth)
+      if (
+        element.children[0].naturalWidth > element.children[0].naturalHeight
+      ) {
+        element.children[0].classList.add('main-content-landscape-img')
+      } else {
+        element.children[0].classList.add('main-content-portrait-img')
+      }
     }
   },
   methods: {
