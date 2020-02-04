@@ -1,7 +1,7 @@
 <template>
   <div
     ref="article"
-    :id="articleData._id"
+    :data-id="articleData._id"
     :class="['single-article', !isMainArticle && 'pt-75']"
   >
     <div class="main-blur-img-container">

@@ -116,7 +116,59 @@ export default {
         this.selectedArticle = relArticle.data.articleData
       }
     },
+    nextArticleBtnHandler() {
+      const { _id } = this.selectedArticle
+      const selectedArticleContainer = document.querySelector(
+        `.single-article[data-id="${_id}"]`
+      )
+
+      if (selectedArticleContainer) {
+        const nextArticleBtn = selectedArticleContainer.getElementsByClassName(
+          'right-column-container'
+        )[0]
+
+        if (nextArticleBtn.offsetTop < window.pageYOffset) {
+          // increment marginTop
+          nextArticleBtn.style.position = 'fixed'
+          nextArticleBtn.style.top = '300px'
+          const selectedArticleHeight = selectedArticleContainer.getBoundingClientRect()
+            .height
+          if (
+            window.pageYOffset - selectedArticleContainer.offsetTop + 800 >=
+              selectedArticleHeight &&
+            nextArticleBtn.style.position === 'fixed'
+          ) {
+            nextArticleBtn.style.position = 'relative'
+            nextArticleBtn.style.top = `${window.pageYOffset -
+              nextArticleBtn.parentElement.offsetTop}px`
+            // `${window.pageYOffset -
+            //   selectedArticleHeight}px`
+          }
+          // if (
+          //   window.pageYOffset - selectedArticleContainer.offsetTop - 300 <=
+          //   selectedArticleHeight - 1000
+          // ) {
+          //   console.log(
+          //     window.pageYOffset,
+          //     selectedArticleContainer.offsetTop,
+          //     selectedArticleHeight
+          //   )
+          //   // nextArticleBtn.style.marginTop = `${window.pageYOffset -
+          //   //   selectedArticleContainer.offsetTop -
+          //   //   300}px`
+          // }
+        }
+        const nextArticleBtnTop = nextArticleBtn.getBoundingClientRect().top
+        if (nextArticleBtnTop > 120) {
+          nextArticleBtn.style.marginTop = Math.max(
+            parseFloat(nextArticleBtn.style.marginTop),
+            0
+          )
+        }
+      }
+    },
     handleScroll() {
+      this.nextArticleBtnHandler()
       const articles = Array.from(document.querySelectorAll('.single-article'))
       const ratios = []
       for (const article of articles) {
