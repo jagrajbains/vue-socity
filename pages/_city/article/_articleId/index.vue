@@ -4,6 +4,9 @@
       :isMainArticle="true"
       v-on:articleReadDone="handleArticleReadDone"
       :article="article"
+      :isPrevDisabled="true"
+      :isNextDisabled="!relatedArticles"
+      :nextArticle="nextArticle()"
     />
     <div v-if="loading">
       Loading...
@@ -13,7 +16,12 @@
       v-for="(r, idx) in relatedArticles"
       :key="idx"
     >
-      <SingleArticle :article="r" />
+      <SingleArticle
+        :article="r"
+        :isNextDisabled="idx === relatedArticles.length - 1"
+        :nextArticle="nextArticle(true, idx)"
+        :prevArticle="prevArticle(idx)"
+      />
     </div>
   </div>
 </template>
@@ -56,6 +64,39 @@ export default {
   },
   middleware: 'cityCheck',
   methods: {
+    nextArticle(isRelatedArticle = false, index) {
+      if (!this.relatedArticles) {
+        return {}
+      }
+      if (isRelatedArticle) {
+        const nextarticle = this.relatedArticles[index + 1]
+        return nextarticle
+          ? {
+              _id: nextarticle.data.articleData._id,
+              title: nextarticle.data.articleData.title
+            }
+          : {}
+      }
+
+      return {
+        _id: this.relatedArticles[0].data.articleData._id,
+        title: this.relatedArticles[0].data.articleData.title
+      }
+    },
+    prevArticle(index) {
+      if (!this.relatedArticles) return ''
+
+      if (index >= 1) {
+        return {
+          _id: this.relatedArticles[index - 1].data.articleData._id,
+          title: this.relatedArticles[index - 1].data.articleData.title
+        }
+      }
+      return {
+        _id: this.article.data.articleData._id,
+        title: this.article.data.articleData.title
+      }
+    },
     handlePushState({ city, article }) {
       console.log('push state triggered!', { city, article })
     },

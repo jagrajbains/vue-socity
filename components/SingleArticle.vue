@@ -1,5 +1,5 @@
 <template>
-  <div ref="article" class="single-article">
+  <div ref="article" :id="articleData._id" class="single-article">
     <div class="main-blur-img-container">
       <img :src="headerImageURL" class="main-blur-img" />
       <div class="header-img-container">
@@ -10,7 +10,11 @@
     <div class="row article-container">
       <!-- stuff to the left -->
       <!-- TODO: toggle display property -->
-      <div :class="`col-lg-3 col-md-3`"></div>
+      <div :class="`col-lg-3 col-md-3`">
+        <div v-if="!isPrevDisabled">
+          Prev article is {{ prevArticle.title }}
+        </div>
+      </div>
       <!-- article body container -->
       <div class="col-lg-6 col-md-6 col-sm-12">
         <!-- title container -->
@@ -44,7 +48,7 @@
           </div>
         </div>
         <!-- Next article -->
-        <div>
+        <div v-if="!isNextDisabled">
           <div class="article-border"></div>
           <div class="article-border-pointer"></div>
           <div
@@ -55,7 +59,11 @@
         </div>
       </div>
       <!-- stuff to the right -->
-      <div class="col-lg-3 col-md-3"></div>
+      <div class="col-lg-3 col-md-3">
+        <div v-if="!isNextDisabled">
+          Next article is {{ nextArticle.title }}
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -73,6 +81,22 @@ export default {
     isMainArticle: {
       type: Boolean,
       default: false
+    },
+    isPrevDisabled: {
+      type: Boolean,
+      default: false
+    },
+    isNextDisabled: {
+      type: Boolean,
+      default: false
+    },
+    nextArticle: {
+      type: Object,
+      default: () => ({})
+    },
+    prevArticle: {
+      type: Object,
+      default: () => ({})
     }
   },
   computed: {
