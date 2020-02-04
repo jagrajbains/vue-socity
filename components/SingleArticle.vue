@@ -64,7 +64,7 @@
       </div>
       <!-- stuff to the right -->
       <div class="col-lg-3 col-md-3">
-        <div v-if="!isNextDisabled">
+        <div v-show="!isNextDisabled" class="right-column-container">
           <div class="right-column">
             <div class="right-column-next">
               <p class="right-column-next-text">NEXT</p>
@@ -159,6 +159,8 @@ export default {
         element.children[0].classList.add('main-content-portrait-img')
       }
     }
+    const nextColumn = document.querySelector('.right-column')
+    console.log(nextColumn.offsetTop - window.pageYOffset)
   },
   methods: {
     getTimeAgo,
@@ -190,6 +192,10 @@ export default {
 </script>
 
 <style>
+.right-column-container {
+  display: flex;
+  justify-content: center;
+}
 .right-column-title {
   font-size: 12px;
   line-height: 24px;
@@ -207,6 +213,7 @@ export default {
   height: 15px;
   color: #13cb86;
   font-weight: 100;
+  margin-top: 1px;
 }
 .right-column-next-text {
   color: #404040;
@@ -220,7 +227,7 @@ export default {
   flex-direction: column;
   align-items: flex-end;
   max-width: 115px;
-  margin-top: 90px;
+  padding-top: 90px;
 }
 .blur-main-content-img-container {
   width: 100%;
