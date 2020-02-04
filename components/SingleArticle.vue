@@ -44,7 +44,15 @@
         <div class="share-container">
           <div class="fb-container">
             <img src="../assets/fb-icon.svg" />
-            <p>Share on facebook</p>
+            <p>
+              <a
+                :href="
+                  `https://www.facebook.com/sharer/sharer.php?u=so.city/${articleData.primaryCity}/article/${articleData._id}`
+                "
+                target="_blank"
+                >Share on facebook</a
+              >
+            </p>
           </div>
           <div class="bkm-container">
             <img src="../assets/fb-icon.svg" />
@@ -390,12 +398,14 @@ export default {
   display: flex;
   justify-content: space-evenly;
 }
+.fb-container p a,
 .fb-container p {
   margin: 0px !important;
   align-self: center;
   color: white;
   text-transform: uppercase;
   font-size: 14px;
+  text-decoration: none;
 }
 .bkm-container {
   width: 261px;
