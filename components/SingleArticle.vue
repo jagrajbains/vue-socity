@@ -61,7 +61,13 @@
       <!-- stuff to the right -->
       <div class="col-lg-3 col-md-3">
         <div v-if="!isNextDisabled">
-          Next article is {{ nextArticle.title }}
+          <div class="right-column">
+            <div class="right-column-next">
+              <p class="">NEXT</p>
+              <font-awesome-icon :icon="['fas', 'chevron-down']" />
+            </div>
+            <p class="right-column-title">{{ nextArticle.title }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -177,6 +183,28 @@ export default {
 </script>
 
 <style>
+.right-column-title {
+  font-size: 12px;
+  line-height: 24px;
+  text-align: right;
+  color: #404040;
+  font-family: 'Open Sans';
+}
+.right-column-next {
+  display: flex;
+}
+.right-column-next {
+  color: #404040;
+  font-family: 'Open Sans';
+  font-weight: 900;
+  font-size: 12px;
+}
+.right-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 115px;
+}
 .blur-main-content-img-container {
   width: 100%;
   position: relative;
