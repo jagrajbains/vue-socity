@@ -67,8 +67,11 @@
         <div v-if="!isNextDisabled">
           <div class="right-column">
             <div class="right-column-next">
-              <p class="">NEXT</p>
-              <font-awesome-icon :icon="['fas', 'chevron-down']" />
+              <p class="right-column-next-text">NEXT</p>
+              <font-awesome-icon
+                :icon="['fas', 'chevron-down']"
+                class="right-column-next-icon"
+              />
             </div>
             <p class="right-column-title">{{ nextArticle.title }}</p>
           </div>
@@ -196,18 +199,28 @@ export default {
 }
 .right-column-next {
   display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
-.right-column-next {
+.right-column-next-icon {
+  width: 12px;
+  height: 15px;
+  color: #13cb86;
+  font-weight: 100;
+}
+.right-column-next-text {
   color: #404040;
   font-family: 'Open Sans';
   font-weight: 900;
   font-size: 12px;
+  margin-right: 5px;
 }
 .right-column {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   max-width: 115px;
+  margin-top: 90px;
 }
 .blur-main-content-img-container {
   width: 100%;
@@ -322,6 +335,7 @@ export default {
 }
 
 .follow-btn {
+  font-weight: 600;
   font-size: 18px;
   color: #13cb86;
   padding: 13px 38px;
