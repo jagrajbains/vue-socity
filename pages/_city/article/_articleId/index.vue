@@ -39,7 +39,14 @@ export default {
     return {
       loading: false,
       article: null,
-      relatedArticles: null
+      relatedArticles: null,
+      selectedArticle: null
+    }
+  },
+  computed: {
+    title() {
+      const { title } = this.selectedArticle
+      return title
     }
   },
   async asyncData({ params, $axios, error }) {
@@ -49,7 +56,7 @@ export default {
       const resp = await $axios.get(
         `/articles/fetchArticle/${city}/${articleId}/undefined`
       )
-      return { article: resp.data }
+      return { article: resp.data, selectedArticle: resp.data.data.articleData }
     } catch (err) {
       console.error(err)
       error({ statusCode: 404, message: 'Not Found!' })
@@ -100,7 +107,14 @@ export default {
       }
     },
     handlePushState({ city, article }) {
-      console.log('push state triggered!', { city, article })
+      if (this.article.data.articleData._id === article) {
+        this.selectedArticle = this.article.data.articleData
+      } else {
+        const relArticle = this.relatedArticles.find(
+          (r) => r.data.articleData._id === article
+        )
+        this.selectedArticle = relArticle.data.articleData
+      }
     },
     handleScroll() {
       const articles = Array.from(document.querySelectorAll('.single-article'))
@@ -132,12 +146,10 @@ export default {
       const articleId = pathname.split('/')[pathname.split('/').length - 1]
       const city = pathname.split('/')[1]
       if (maxRatioIndex === 0) {
-        // change url to this.article.data.articleData._id
         if (articleId !== this.article.data.articleData._id) {
           this.changeURL(this.article.data.articleData._id, city)
         }
       } else if (maxRatioIndex !== -1) {
-        // change url to this.relatedArticles[maxRatioIndex - 1].data.articleData._id
         // eslint-disable-next-line no-lonely-if
         if (
           articleId !==
@@ -183,6 +195,11 @@ export default {
       })
       this.relatedArticles = relatedArticleArr
       this.loading = false
+    }
+  },
+  head() {
+    return {
+      title: this.title
     }
   }
 }
