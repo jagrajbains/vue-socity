@@ -1,5 +1,9 @@
 <template>
-  <div ref="article" :id="articleData._id" class="single-article">
+  <div
+    ref="article"
+    :id="articleData._id"
+    :class="['single-article', !isMainArticle && 'pt-75']"
+  >
     <div class="main-blur-img-container">
       <img :src="headerImageURL" class="main-blur-img" />
       <div class="header-img-container">
