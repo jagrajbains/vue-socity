@@ -73,7 +73,16 @@
       <!-- stuff to the right -->
       <div class="col-lg-3 col-md-3">
         <div v-if="!isNextDisabled">
-          Next article is {{ nextArticle.title }}
+          <div class="right-column">
+            <div class="right-column-next">
+              <p class="right-column-next-text">NEXT</p>
+              <font-awesome-icon
+                :icon="['fas', 'chevron-down']"
+                class="right-column-next-icon"
+              />
+            </div>
+            <p class="right-column-title">{{ nextArticle.title }}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -189,6 +198,38 @@ export default {
 </script>
 
 <style>
+.right-column-title {
+  font-size: 12px;
+  line-height: 24px;
+  text-align: right;
+  color: #404040;
+  font-family: 'Open Sans';
+}
+.right-column-next {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.right-column-next-icon {
+  width: 12px;
+  height: 15px;
+  color: #13cb86;
+  font-weight: 100;
+}
+.right-column-next-text {
+  color: #404040;
+  font-family: 'Open Sans';
+  font-weight: 900;
+  font-size: 12px;
+  margin-right: 5px;
+}
+.right-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 115px;
+  margin-top: 90px;
+}
 .blur-main-content-img-container {
   width: 100%;
   position: relative;
@@ -302,6 +343,7 @@ export default {
 }
 
 .follow-btn {
+  font-weight: 600;
   font-size: 18px;
   color: #13cb86;
   padding: 13px 38px;
