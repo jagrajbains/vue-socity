@@ -1,100 +1,38 @@
 <template>
   <div>
-    <div style="width: 100%; position: relative; height: 560px; margin: 5px 0;">
-      <img
-        :src="headerImageURL"
-        :style="{
-          filter: 'blur(6px)',
-          width: '100%',
-          height: '100%',
-          objectFit: 'fill'
-        }"
-      />
-      <div class="header-img-container">
-        <img :src="headerImageURL" class="header-img" />
-      </div>
+    <SingleArticle
+      :isMainArticle="true"
+      v-on:articleReadDone="handleArticleReadDone"
+      :article="article"
+    />
+    <div v-if="loading">
+      Loading...
     </div>
-    <!-- article container -->
-    <div class="row article-container">
-      <!-- stuff to the left -->
-      <!-- TODO: toggle display property -->
-      <div :class="`col-lg-3 col-md-3`"></div>
-      <!-- article body container -->
-      <div class="col-lg-6 col-md-6 col-sm-12">
-        <!-- title container -->
-        <div class="title-container">
-          <p class="title-text">{{ articleData.title }}</p>
-        </div>
-        <!-- author info -->
-        <div class="author-info-container">
-          <div class="author-info">
-            <img :src="publisherData.cloudProfile" class="author-img" />
-            <div class="author-info-text">
-              <span class="author-name">{{ publisherData.displayName }}</span>
-              <span class="publish-date">
-                {{ getTimeAgo(articleData.updatedAt) }}
-              </span>
-            </div>
-          </div>
-          <div class="follow-btn">Follow</div>
-        </div>
-        <!-- introduction -->
-        <div v-html="articleIntroduction" class="article-content"></div>
-        <!-- share section -->
-        <div>
-          <div>Share on facebook</div>
-          <div>Bookmark this article</div>
-        </div>
-        <!-- Next article -->
-        <div>Next article</div>
-      </div>
-      <!-- stuff to the right -->
-      <div class="col-lg-3 col-md-3"></div>
+    <div
+      v-else-if="relatedArticles"
+      v-for="(r, idx) in relatedArticles"
+      :key="idx"
+    >
+      <SingleArticle :article="r" />
     </div>
   </div>
 </template>
 
 <script>
-import $ from 'cheerio'
 import { getTimeAgo } from '~/utils'
+import SingleArticle from '~/components/SingleArticle'
 
 export default {
+  components: {
+    SingleArticle
+  },
   data() {
     return {
-      article: null
+      loading: false,
+      article: null,
+      relatedArticles: null
     }
   },
-  computed: {
-    articleData() {
-      return this.article.data.articleData
-    },
-    publisherData() {
-      return this.article.data.publisherData
-    },
-    headerImageURL() {
-      return `https://res.cloudinary.com/purnesh/image/upload/w_1080,f_auto,q_auto:eco,c_limit/${this.articleData.imageSlug}`
-    },
-    articleIntroduction() {
-      const container = $.parseHTML(
-        `<div>${this.articleData.introduction}</div>`
-      )
-      $(container[0])
-        .find('img')
-        .each(function(idx, img) {
-          const imageParentInnerHTML = $(img)
-            .parent()
-            .html()
-          $(img).parent().replaceWith(`
-      <div class="blur-main-content-img-container">
-      <img src="${img.attribs.src}" class="blur-main-content-img" />
-      <div class="main-content-img-container">${imageParentInnerHTML}</div>
-      </div>
-      `)
-        })
-      return $(container).html()
-    }
-  },
-  middleware: 'cityCheck',
   async asyncData({ params, $axios, error }) {
     try {
       const { city, articleId } = params
@@ -104,12 +42,107 @@ export default {
       )
       return { article: resp.data }
     } catch (err) {
+      console.error(err)
       error({ statusCode: 404, message: 'Not Found!' })
-      // return { articleData: null, error: true }
     }
   },
+  created() {
+    this.$nuxt.$on('pushState', this.handlePushState)
+  },
+  beforeDestroy() {
+    this.$nuxt.$off('pushState')
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  middleware: 'cityCheck',
   methods: {
-    getTimeAgo
+    getTimeAgo,
+    handlePushState({ city, article }) {
+      console.log('push state triggered!', { city, article })
+    },
+    handleScroll() {
+      const articles = Array.from(document.querySelectorAll('.single-article'))
+      const ratios = []
+      for (const article of articles) {
+        const { width, top, bottom } = article.getBoundingClientRect()
+        const articleWidth = width
+        let articleHeight
+        if (top <= 0) {
+          if (bottom > window.innerHeight) {
+            articleHeight = window.innerHeight
+          } else {
+            articleHeight = bottom
+          }
+        } else if (top > 0 && top <= window.innerHeight) {
+          articleHeight = window.innerHeight - top
+        } else {
+          articleHeight = 0
+        }
+
+        const viewPortArea = window.innerHeight * window.innerWidth
+        const articleArea = articleWidth * articleHeight
+        ratios.push(articleArea / viewPortArea)
+      }
+      const maxRatio = Math.max(...ratios)
+      const maxRatioIndex = ratios.indexOf(maxRatio)
+
+      const { pathname } = window.location
+      const articleId = pathname.split('/')[pathname.split('/').length - 1]
+      const city = pathname.split('/')[1]
+      if (maxRatioIndex === 0) {
+        // change url to this.article.data.articleData._id
+        if (articleId !== this.article.data.articleData._id) {
+          this.changeURL(this.article.data.articleData._id, city)
+        }
+      } else if (maxRatioIndex !== -1) {
+        // change url to this.relatedArticles[maxRatioIndex - 1].data.articleData._id
+        // eslint-disable-next-line no-lonely-if
+        if (
+          articleId !==
+          this.relatedArticles[maxRatioIndex - 1].data.articleData._id
+        ) {
+          this.changeURL(
+            this.relatedArticles[maxRatioIndex - 1].data.articleData._id,
+            city
+          )
+        }
+      }
+    },
+    changeURL(id, city) {
+      window.history.pushState({}, null, `/delhi/article/${id}`)
+      this.$nuxt.$emit('pushState', { city, article: id })
+    },
+    async handleArticleReadDone() {
+      if (this.relatedArticles || this.loading) return
+      // fetch more related articles
+      const { categories, publishDate, _id } = this.article.data.articleData
+      const { city } = this.$route.params
+      this.loading = true
+      const resp2 = await this.$axios.post(
+        'https://soapi.in:3001/feed/relatedFeeds',
+        {
+          city,
+          batchSize: 3,
+          publishedDate: publishDate,
+          categories,
+          _id
+        }
+      )
+      const relatedArticleArr = resp2.data.data.articles.map((a) => {
+        const pub = resp2.data.data.publishers.find(
+          (p) => p.username === a.createdBy
+        )
+        return {
+          data: {
+            articleData: a,
+            publisherData: pub
+          }
+        }
+      })
+      this.relatedArticles = relatedArticleArr
+      this.loading = false
+    }
   }
 }
 </script>
