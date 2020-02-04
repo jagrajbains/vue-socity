@@ -102,15 +102,32 @@ export default {
   },
   methods: {
     getTimeAgo
+  },
+  mounted() {
+    console.log('Hit')
+    const imagesArr = document.getElementsByClassName(
+      'main-content-img-container'
+    )
+    for (let i = 0; i < imagesArr.length; i++) {
+      const element = imagesArr[i]
+      console.log(element.children[0].naturalWidth)
+      if (
+        element.children[0].naturalWidth > element.children[0].naturalHeight
+      ) {
+        element.children[0].classList.add('main-content-landscape-img')
+      } else {
+        element.children[0].classList.add('main-content-portrait-img')
+      }
+    }
   }
 }
 </script>
 
 <style>
 .blur-main-content-img-container {
-  width: 735px;
+  width: 100%;
   position: relative;
-  height: 300px;
+  height: 350px;
   margin: 50px 0px;
   overflow: hidden;
 }
@@ -127,11 +144,18 @@ export default {
   transform: translate(-50%, 0);
   width: 500px;
 }
-.main-content-img-container img {
+.main-content-portrait-img {
   height: 100%;
   width: 100%;
   object-fit: contain;
 }
+
+.main-content-landscape-img {
+  height: 100%;
+  width: 100%;
+  object-fit: fill;
+}
+
 .main-blur-img {
   filter: blur(6px);
   width: 100%;
@@ -153,7 +177,8 @@ export default {
   height: 100%;
 }
 .header-img {
-  height: 500px;
+  height: 100%;
+  margin-top: 5px;
 }
 .article-container {
   box-shadow: 0 -5px 5px -5px #000;
@@ -225,5 +250,6 @@ export default {
   font-family: 'Open Sans', serif;
   line-height: 30px;
   color: #0a0a0a;
+  border-bottom: 1px solid #ddd;
 }
 </style>
