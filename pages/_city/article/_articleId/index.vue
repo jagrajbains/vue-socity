@@ -9,7 +9,7 @@
       :nextArticle="nextArticle()"
     />
     <div v-if="loading">
-      Loading...
+      <Loader />
     </div>
     <div
       v-else-if="relatedArticles"
@@ -28,10 +28,12 @@
 
 <script>
 import SingleArticle from '~/components/SingleArticle'
+import Loader from '~/components/Loader'
 
 export default {
   components: {
-    SingleArticle
+    SingleArticle,
+    Loader
   },
   data() {
     return {
