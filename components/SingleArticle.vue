@@ -475,7 +475,6 @@ export default {
 }
 
 .follow-btn {
-  font-weight: 600;
   font-size: 18px;
   color: #13cb86;
   padding: 8px 30px;
