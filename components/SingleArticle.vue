@@ -26,7 +26,7 @@
                   :icon="['fas', 'chevron-up']"
                   class="left-column-next-icon"
                 />
-                <p class="left-column-next-text">Previous</p>
+                <p class="left-column-next-text">PREV</p>
               </div>
               <p class="left-column-title">{{ prevArticle.title }}</p>
             </div>
@@ -159,7 +159,7 @@ export default {
       return this.$props.article.data.publisherData
     },
     headerImageURL() {
-      return `https://res.cloudinary.com/purnesh/image/upload/w_1080,f_auto,q_auto:eco,c_limit/${this.articleData.imageSlug}`
+      return `https://res.cloudinary.com/purnesh/image/upload/w_1080,f_auto/${this.articleData.imageSlug}`
     },
     articleIntroduction() {
       const container = $.parseHTML(
@@ -183,21 +183,32 @@ export default {
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
-    const imagesArr = document.getElementsByClassName(
-      'main-content-img-container'
+    const imagesArr = Array.from(
+      document.getElementsByClassName('main-content-img-container')
     )
-    for (let i = 0; i < imagesArr.length; i++) {
-      const element = imagesArr[i]
-      if (
-        element.children[0].naturalWidth > element.children[0].naturalHeight
-      ) {
-        element.children[0].classList.add('main-content-landscape-img')
+    imagesArr.forEach((container) => {
+      const img = container.children[0]
+      if (img.addEventListener) {
+        img.addEventListener('load', () => {
+          this.imageClassAdder(img)
+        })
       } else {
-        element.children[0].classList.add('main-content-portrait-img')
+        img.attachEvent('onload', () => {
+          this.imageClassAdder(img)
+        })
       }
-    }
+    })
   },
   methods: {
+    imageClassAdder(img) {
+      const w = img.naturalWidth || img.width
+      const h = img.naturalHeight || img.height
+      if (w > h) {
+        img.classList.add('main-content-landscape-img')
+      } else {
+        img.classList.add('main-content-portrait-img')
+      }
+    },
     handleNextClick() {
       const { nextArticle } = this.$props
       if (nextArticle) {
@@ -382,7 +393,7 @@ export default {
 }
 
 .main-blur-img {
-  filter: blur(6px);
+  filter: blur(15px);
   width: 100%;
   height: 100%;
   object-fit: fill;
