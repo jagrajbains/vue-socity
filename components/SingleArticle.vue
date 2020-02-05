@@ -526,7 +526,7 @@ export default {
   color: #404040;
 }
 .fb-container {
-  width: 229px;
+  width: 250px;
   height: 48px;
   border-radius: 24px;
   background-color: #1976d2;
@@ -543,7 +543,7 @@ export default {
   text-decoration: none;
 }
 .bkm-container {
-  width: 261px;
+  width: 250px;
   height: 48px;
   border-radius: 24px;
   background-color: #393939;
