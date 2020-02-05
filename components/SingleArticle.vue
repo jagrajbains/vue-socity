@@ -115,7 +115,8 @@
 </template>
 
 <script>
-import $ from 'cheerio'
+import cheerio from 'cheerio'
+import $ from 'jquery'
 import { getTimeAgo } from '~/utils'
 
 export default {
@@ -162,23 +163,23 @@ export default {
       return `https://res.cloudinary.com/purnesh/image/upload/w_1080,f_auto,q_auto:eco,c_limit/${this.articleData.imageSlug}`
     },
     articleIntroduction() {
-      const container = $.parseHTML(
+      const container = cheerio.parseHTML(
         `<div>${this.articleData.introduction}</div>`
       )
-      $(container[0])
+      cheerio(container[0])
         .find('img')
         .each(function(idx, img) {
-          const imageParentInnerHTML = $(img)
+          const imageParentInnerHTML = cheerio(img)
             .parent()
             .html()
-          $(img).parent().replaceWith(`
+          cheerio(img).parent().replaceWith(`
             <div class="blur-main-content-img-container">
             <img src="${img.attribs.src}" class="blur-main-content-img" />
             <div class="main-content-img-container">${imageParentInnerHTML}</div>
             </div>
           `)
         })
-      return $(container).html()
+      return cheerio(container).html()
     }
   },
   mounted() {
@@ -201,17 +202,30 @@ export default {
     handleNextClick() {
       const { nextArticle } = this.$props
       if (nextArticle) {
-        document
-          .querySelector(`.single-article[data-id="${nextArticle._id}"]`)
-          .scrollIntoView()
+        $('html, body').animate(
+          {
+            scrollTop: document.querySelector(
+              `.single-article[data-id="${nextArticle._id}"]`
+            ).offsetTop
+          },
+          800
+        )
+        // document
+        //   .querySelector(`.single-article[data-id="${nextArticle._id}"]`)
+        //   .scrollIntoView({ behavior: 'smooth' })
       }
     },
     handlePreviousClick() {
       const { prevArticle } = this.$props
       if (prevArticle) {
-        document
-          .querySelector(`.single-article[data-id="${prevArticle._id}"]`)
-          .scrollIntoView()
+        $('html, body').animate(
+          {
+            scrollTop: document.querySelector(
+              `.single-article[data-id="${prevArticle._id}"]`
+            ).offsetTop
+          },
+          800
+        )
       }
     },
     getTimeAgo,
