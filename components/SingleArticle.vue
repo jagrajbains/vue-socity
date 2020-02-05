@@ -19,6 +19,7 @@
           Prev article is {{ prevArticle.title }}
         </div>
       </div>
+      <div ref="topSeparator" class="top-sep" />
       <!-- article body container -->
       <div class="col-lg-6 col-md-6 col-sm-12">
         <!-- title container -->
@@ -40,6 +41,7 @@
         </div>
         <!-- introduction -->
         <div v-html="articleIntroduction" class="article-content"></div>
+        <div ref="bottomSeparator" class="bottom-sep" />
         <!-- share section -->
         <div class="share-container">
           <div class="fb-container">
@@ -71,7 +73,7 @@
         </div>
       </div>
       <!-- stuff to the right -->
-      <div ref="nextbtn" class="col-lg-3 col-md-3">
+      <div class="col-lg-3 col-md-3 next-btn-container">
         <div v-show="!isNextDisabled" class="right-column-container">
           <div class="right-column">
             <div class="right-column-next">
@@ -120,6 +122,12 @@ export default {
       default: () => ({})
     }
   },
+  data() {
+    return {
+      isTopCrossed: false,
+      isBottomCrossed: false
+    }
+  },
   computed: {
     articleData() {
       return this.$props.article.data.articleData
@@ -151,13 +159,7 @@ export default {
     }
   },
   mounted() {
-    this.$emit('initialTop', {
-      top: this.$refs.nextbtn.getBoundingClientRect().top,
-      _id: this.articleData._id
-    })
-    if (this.$props.isMainArticle) {
-      window.addEventListener('scroll', this.handleScroll)
-    }
+    window.addEventListener('scroll', this.handleScroll)
     const imagesArr = document.getElementsByClassName(
       'main-content-img-container'
     )
@@ -171,15 +173,34 @@ export default {
         element.children[0].classList.add('main-content-portrait-img')
       }
     }
-    const nextColumn = document.querySelector('.right-column')
-    console.log(nextColumn.offsetTop - window.pageYOffset)
   },
   methods: {
     getTimeAgo,
     handleScroll() {
-      const perc = this.percentageInView()
-      if (perc >= 50) {
-        this.$emit('articleReadDone')
+      if (this.$props.isMainArticle) {
+        const perc = this.percentageInView()
+        if (perc >= 50) {
+          this.$emit('articleReadDone')
+        }
+      }
+      // check if top-sep crossed viewport top
+      const topSepTop = this.$refs.topSeparator.getBoundingClientRect().top
+      if (topSepTop < 0 && !this.isTopCrossed) {
+        this.$emit('topCrossedUp', this.articleData._id)
+        this.isTopCrossed = true
+      } else if (topSepTop >= 0 && this.isTopCrossed) {
+        this.isTopCrossed = false
+        this.$emit('topCrossedDown', this.articleData._id)
+      }
+
+      const bottomSepTop = this.$refs.bottomSeparator.getBoundingClientRect()
+        .top
+      if (bottomSepTop < 300 && !this.isBottomCrossed) {
+        this.$emit('bottomCrossedUp', this.articleData._id)
+        this.isBottomCrossed = true
+      } else if (bottomSepTop >= 300 && this.isBottomCrossed) {
+        this.isBottomCrossed = false
+        this.$emit('bottomCrossedDown', this.articleData._id)
       }
     },
     percentageInView() {
