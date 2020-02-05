@@ -563,4 +563,12 @@ export default {
   padding-bottom: 65px;
   justify-content: space-evenly;
 }
+@media only screen and (max-width: 768px) {
+  .left-column-container {
+    display: none;
+  }
+  .right-column-container {
+    display: none;
+  }
+}
 </style>
