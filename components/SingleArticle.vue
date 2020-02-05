@@ -453,7 +453,6 @@ export default {
 }
 
 .author-name {
-  font-weight: bold;
   line-height: 2.5;
 }
 
@@ -465,7 +464,7 @@ export default {
   font-weight: 600;
   font-size: 18px;
   color: #13cb86;
-  padding: 13px 38px;
+  padding: 8px 30px;
   border: 1px solid #13cb86;
   border-radius: 2px;
   margin-top: 18px;
