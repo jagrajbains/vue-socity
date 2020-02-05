@@ -15,8 +15,17 @@
       <!-- stuff to the left -->
       <!-- TODO: toggle display property -->
       <div :class="`col-lg-3 col-md-3`">
-        <div v-if="!isPrevDisabled">
-          Prev article is {{ prevArticle.title }}
+        <div v-show="!isPrevDisabled" class="left-column-container">
+          <div class="left-column">
+            <div class="left-column-next">
+              <font-awesome-icon
+                :icon="['fas', 'chevron-down']"
+                class="left-column-next-icon"
+              />
+              <p class="left-column-next-text">Previous</p>
+            </div>
+            <p class="left-column-title">{{ prevArticle.title }}</p>
+          </div>
         </div>
       </div>
       <div ref="topSeparator" class="top-sep" />
@@ -74,7 +83,11 @@
       </div>
       <!-- stuff to the right -->
       <div class="col-lg-3 col-md-3 next-btn-container">
-        <div v-show="!isNextDisabled" class="right-column-container">
+        <div
+          v-show="!isNextDisabled"
+          @click="handleNextClick"
+          class="right-column-container"
+        >
           <div class="right-column">
             <div class="right-column-next">
               <p class="right-column-next-text">NEXT</p>
@@ -175,6 +188,14 @@ export default {
     }
   },
   methods: {
+    handleNextClick() {
+      const { nextArticle } = this.$props
+      if (nextArticle) {
+        document
+          .querySelector(`.single-article[data-id="${nextArticle._id}"]`)
+          .scrollIntoView()
+      }
+    },
     getTimeAgo,
     handleScroll() {
       if (this.$props.isMainArticle) {
@@ -195,10 +216,10 @@ export default {
 
       const bottomSepTop = this.$refs.bottomSeparator.getBoundingClientRect()
         .top
-      if (bottomSepTop < 300 && !this.isBottomCrossed) {
+      if (bottomSepTop < 215 && !this.isBottomCrossed) {
         this.$emit('bottomCrossedUp', this.articleData._id)
         this.isBottomCrossed = true
-      } else if (bottomSepTop >= 300 && this.isBottomCrossed) {
+      } else if (bottomSepTop > 215 && this.isBottomCrossed) {
         this.isBottomCrossed = false
         this.$emit('bottomCrossedDown', this.articleData._id)
       }
@@ -225,6 +246,43 @@ export default {
 </script>
 
 <style>
+.left-column-container {
+  display: flex;
+  justify-content: center;
+}
+.left-column-title {
+  font-size: 12px;
+  line-height: 24px;
+  text-align: left;
+  color: #404040;
+  font-family: 'Open Sans';
+  direction: rtl;
+}
+.left-column-next {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+}
+.left-column-next-icon {
+  width: 12px;
+  height: 15px;
+  color: #13cb86;
+  font-weight: 100;
+  margin-top: 1px;
+}
+.left-column-next-text {
+  color: #404040;
+  font-family: 'Open Sans';
+  font-weight: 900;
+  font-size: 12px;
+  margin-left: 5px;
+}
+.left-column {
+  display: flex;
+  flex-direction: column;
+  max-width: 115px;
+  padding-top: 90px;
+}
 .right-column-container {
   display: flex;
   justify-content: center;

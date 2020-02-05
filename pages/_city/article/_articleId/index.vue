@@ -90,7 +90,8 @@ export default {
         'right-column-container'
       )[0]
       nextBtn.style.position = 'fixed'
-      nextBtn.style.top = '150px'
+      nextBtn.style.top = '-3px'
+      nextBtn.style.right = '112px'
     },
     handleTopCrossedDown(_id) {
       const article = this.getArticleContainer(_id)
@@ -98,6 +99,7 @@ export default {
         'right-column-container'
       )[0]
       nextBtn.style.position = 'relative'
+      nextBtn.style.right = '0px'
     },
     handleBottomCrossedUp(_id) {
       const article = this.getArticleContainer(_id)
@@ -105,7 +107,8 @@ export default {
         'right-column-container'
       )[0]
       nextBtn.style.position = 'relative'
-      nextBtn.style.top = `${nextBtn.parentElement.offsetHeight - 400}px`
+      nextBtn.style.top = `${nextBtn.parentElement.offsetHeight - 423}px`
+      nextBtn.style.right = '0px'
     },
     handleBottomCrossedDown(_id) {
       const article = this.getArticleContainer(_id)
@@ -113,7 +116,8 @@ export default {
         'right-column-container'
       )[0]
       nextBtn.style.position = 'fixed'
-      nextBtn.style.top = '150px'
+      nextBtn.style.top = '-3px'
+      nextBtn.style.right = '112px'
     },
     nextArticle(isRelatedArticle = false, index) {
       if (!this.relatedArticles) {
