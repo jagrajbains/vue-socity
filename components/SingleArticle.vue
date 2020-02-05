@@ -396,7 +396,7 @@ export default {
 }
 
 .main-blur-img {
-  filter: blur(6px);
+  filter: blur(15px);
   width: 100%;
   height: 100%;
   object-fit: fill;
