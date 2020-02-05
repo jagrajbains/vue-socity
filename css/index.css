@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Crimson+Pro&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+html {
+  scroll-behavior: smooth;
+}
+.overFXN {
+  overflow-x: hidden;
+}
+
+.pt-75 {
+  padding-top: 75px;
+}
+
+a, a:hover {
+  color: #13cb86;
+}

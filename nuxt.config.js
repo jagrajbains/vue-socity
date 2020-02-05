@@ -1,10 +1,21 @@
+// const isStag = process.env.NODE_ENV === 'staging'
+// const isProd = process.env.NODE_ENV === 'production'
+
+// let baseURL = 'http://localhost:3002'
+// if (isStag) {
+//   baseURL = 'http://159.89.163.129:3005'
+// }
+// if (isProd) {
+//   baseURL = 'https://soapi.in:3001'
+// }
+
 module.exports = {
   mode: 'universal',
   /*
    ** Headers of the page
    */
   head: {
-    title: process.env.npm_package_name || '',
+    title: 'So city',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -23,7 +34,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['./css/index.css'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -45,13 +56,28 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    [
+      'nuxt-fontawesome',
+      {
+        imports: [
+          {
+            set: '@fortawesome/free-solid-svg-icons',
+            icons: ['fas']
+          }
+        ]
+      }
+    ]
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: 'https://soapi.in:3001',
+    debug: true
+    // debug: !isProd
+  },
   /*
    ** Build configuration
    */
