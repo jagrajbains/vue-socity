@@ -145,6 +145,7 @@ export default {
 .write-a-post {
   cursor: pointer;
   font-size: 14px;
+  padding-top: 3px;
 }
 .write-a-post:hover {
   color: #686868;
