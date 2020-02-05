@@ -71,7 +71,7 @@
         </div>
       </div>
       <!-- stuff to the right -->
-      <div class="col-lg-3 col-md-3">
+      <div ref="nextbtn" class="col-lg-3 col-md-3">
         <div v-show="!isNextDisabled" class="right-column-container">
           <div class="right-column">
             <div class="right-column-next">
@@ -151,6 +151,10 @@ export default {
     }
   },
   mounted() {
+    this.$emit('initialTop', {
+      top: this.$refs.nextbtn.getBoundingClientRect().top,
+      _id: this.articleData._id
+    })
     if (this.$props.isMainArticle) {
       window.addEventListener('scroll', this.handleScroll)
     }

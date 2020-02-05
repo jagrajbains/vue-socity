@@ -7,6 +7,7 @@
       :isPrevDisabled="true"
       :isNextDisabled="!relatedArticles"
       :nextArticle="nextArticle()"
+      v-on:initialTop="storeInitialTop"
     />
     <div v-if="loading">
       <Loader />
@@ -21,6 +22,7 @@
         :isNextDisabled="idx === relatedArticles.length - 1"
         :nextArticle="nextArticle(true, idx)"
         :prevArticle="prevArticle(idx)"
+        v-on:initialTop="storeInitialTop"
       />
     </div>
   </div>
@@ -40,7 +42,8 @@ export default {
       loading: false,
       article: null,
       relatedArticles: null,
-      selectedArticle: null
+      selectedArticle: null,
+      initialTopNextBtns: {}
     }
   },
   computed: {
@@ -73,6 +76,9 @@ export default {
   },
   middleware: 'cityCheck',
   methods: {
+    storeInitialTop({ top, _id }) {
+      this.initialTopNextBtns[_id] = top + 30 // top is for the column, so add some amt
+    },
     nextArticle(isRelatedArticle = false, index) {
       if (!this.relatedArticles) {
         return {}
@@ -126,45 +132,68 @@ export default {
         const nextArticleBtn = selectedArticleContainer.getElementsByClassName(
           'right-column-container'
         )[0]
-
-        if (nextArticleBtn.offsetTop < window.pageYOffset) {
-          // increment marginTop
-          nextArticleBtn.style.position = 'fixed'
-          nextArticleBtn.style.top = '300px'
-          const selectedArticleHeight = selectedArticleContainer.getBoundingClientRect()
-            .height
+        // console.log('offset top of next btn:', nextArticleBtn.offsetTop)
+        const nextBtnViewportRelativeTop = nextArticleBtn.getBoundingClientRect()
+          .top
+        // console.log('top relative to viewport is', nextBtnViewportRelativeTop)
+        // if next btn has been scrolled more than the page, make its position fixed
+        const initialTop = this.initialTopNextBtns[_id]
+        // initially when display is none, nextBtnViewportRelativeTop is 0
+        const nextBtnDocumentRelativeTop =
+          nextBtnViewportRelativeTop + window.pageYOffset
+        if (nextBtnViewportRelativeTop !== 0) {
           if (
-            window.pageYOffset - selectedArticleContainer.offsetTop + 800 >=
-              selectedArticleHeight &&
-            nextArticleBtn.style.position === 'fixed'
+            nextBtnViewportRelativeTop < 0 &&
+            window.pageYOffset > nextBtnViewportRelativeTop
+          ) {
+            // make it fixed!
+            nextArticleBtn.style.position = 'fixed'
+            nextArticleBtn.style.top = '150px'
+          } else if (
+            nextBtnDocumentRelativeTop <= initialTop &&
+            nextArticleBtn.style.position !== 'relative'
           ) {
             nextArticleBtn.style.position = 'relative'
-            nextArticleBtn.style.top = `${window.pageYOffset -
-              nextArticleBtn.parentElement.offsetTop}px`
-            // `${window.pageYOffset -
-            //   selectedArticleHeight}px`
           }
-          // if (
-          //   window.pageYOffset - selectedArticleContainer.offsetTop - 300 <=
-          //   selectedArticleHeight - 1000
-          // ) {
-          //   console.log(
-          //     window.pageYOffset,
-          //     selectedArticleContainer.offsetTop,
-          //     selectedArticleHeight
-          //   )
-          //   // nextArticleBtn.style.marginTop = `${window.pageYOffset -
-          //   //   selectedArticleContainer.offsetTop -
-          //   //   300}px`
-          // }
         }
-        const nextArticleBtnTop = nextArticleBtn.getBoundingClientRect().top
-        if (nextArticleBtnTop > 120) {
-          nextArticleBtn.style.marginTop = Math.max(
-            parseFloat(nextArticleBtn.style.marginTop),
-            0
-          )
-        }
+        // if (nextArticleBtn.offsetTop < window.pageYOffset) {
+        //   // increment marginTop
+        //   nextArticleBtn.style.position = 'fixed'
+        //   nextArticleBtn.style.top = '300px'
+        //   const selectedArticleHeight = selectedArticleContainer.getBoundingClientRect()
+        //     .height
+        //   if (
+        //     window.pageYOffset - selectedArticleContainer.offsetTop + 800 >=
+        //       selectedArticleHeight &&
+        //     nextArticleBtn.style.position === 'fixed'
+        //   ) {
+        //     nextArticleBtn.style.position = 'relative'
+        //     nextArticleBtn.style.top = `${window.pageYOffset -
+        //       nextArticleBtn.parentElement.offsetTop}px`
+        //     // `${window.pageYOffset -
+        //     //   selectedArticleHeight}px`
+        //   }
+        //   // if (
+        //   //   window.pageYOffset - selectedArticleContainer.offsetTop - 300 <=
+        //   //   selectedArticleHeight - 1000
+        //   // ) {
+        //   //   console.log(
+        //   //     window.pageYOffset,
+        //   //     selectedArticleContainer.offsetTop,
+        //   //     selectedArticleHeight
+        //   //   )
+        //   //   // nextArticleBtn.style.marginTop = `${window.pageYOffset -
+        //   //   //   selectedArticleContainer.offsetTop -
+        //   //   //   300}px`
+        //   // }
+        // }
+        // const nextArticleBtnTop = nextArticleBtn.getBoundingClientRect().top
+        // if (nextArticleBtnTop > 120) {
+        //   nextArticleBtn.style.marginTop = Math.max(
+        //     parseFloat(nextArticleBtn.style.marginTop),
+        //     0
+        //   )
+        // }
       }
     },
     handleScroll() {
