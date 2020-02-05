@@ -189,7 +189,7 @@ export default {
     display: none;
   }
 }
-@media only screen and (min-width: 280px) and (max-width: 480px) {
+@media only screen and (min-width: 280px) and (max-width: 576px) {
   .ham-menu {
     display: block;
     align-self: center;
