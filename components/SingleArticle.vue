@@ -13,20 +13,25 @@
     <!-- article container -->
     <div class="row article-container">
       <!-- stuff to the left -->
-      <!-- TODO: toggle display property -->
       <div :class="`col-lg-3 col-md-3`">
-        <div v-show="!isPrevDisabled" class="left-column-container">
-          <div class="left-column">
-            <div class="left-column-next">
-              <font-awesome-icon
-                :icon="['fas', 'chevron-down']"
-                class="left-column-next-icon"
-              />
-              <p class="left-column-next-text">Previous</p>
+        <transition name="fade">
+          <div
+            v-show="!isPrevDisabled"
+            @click="handlePreviousClick"
+            class="left-column-container"
+          >
+            <div class="left-column">
+              <div class="left-column-next">
+                <font-awesome-icon
+                  :icon="['fas', 'chevron-up']"
+                  class="left-column-next-icon"
+                />
+                <p class="left-column-next-text">Previous</p>
+              </div>
+              <p class="left-column-title">{{ prevArticle.title }}</p>
             </div>
-            <p class="left-column-title">{{ prevArticle.title }}</p>
           </div>
-        </div>
+        </transition>
       </div>
       <div ref="topSeparator" class="top-sep" />
       <!-- article body container -->
@@ -66,7 +71,10 @@
             </p>
           </div>
           <div class="bkm-container">
-            <img src="../assets/fb-icon.svg" />
+            <font-awesome-icon
+              :icon="['fas', 'bookmark']"
+              style="align-self: center; color: white"
+            />
             <p>Bookmark this article</p>
           </div>
         </div>
@@ -83,22 +91,24 @@
       </div>
       <!-- stuff to the right -->
       <div class="col-lg-3 col-md-3 next-btn-container">
-        <div
-          v-show="!isNextDisabled"
-          @click="handleNextClick"
-          class="right-column-container"
-        >
-          <div class="right-column">
-            <div class="right-column-next">
-              <p class="right-column-next-text">NEXT</p>
-              <font-awesome-icon
-                :icon="['fas', 'chevron-down']"
-                class="right-column-next-icon"
-              />
+        <transition name="fade">
+          <div
+            v-show="!isNextDisabled"
+            @click="handleNextClick"
+            class="right-column-container"
+          >
+            <div class="right-column">
+              <div class="right-column-next">
+                <p class="right-column-next-text">NEXT</p>
+                <font-awesome-icon
+                  :icon="['fas', 'chevron-down']"
+                  class="right-column-next-icon"
+                />
+              </div>
+              <p class="right-column-title">{{ nextArticle.title }}</p>
             </div>
-            <p class="right-column-title">{{ nextArticle.title }}</p>
           </div>
-        </div>
+        </transition>
       </div>
     </div>
   </div>
@@ -196,6 +206,14 @@ export default {
           .scrollIntoView()
       }
     },
+    handlePreviousClick() {
+      const { prevArticle } = this.$props
+      if (prevArticle) {
+        document
+          .querySelector(`.single-article[data-id="${prevArticle._id}"]`)
+          .scrollIntoView()
+      }
+    },
     getTimeAgo,
     handleScroll() {
       if (this.$props.isMainArticle) {
@@ -246,9 +264,19 @@ export default {
 </script>
 
 <style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.8s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .left-column-container {
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 .left-column-title {
   font-size: 12px;
@@ -286,6 +314,7 @@ export default {
 .right-column-container {
   display: flex;
   justify-content: center;
+  cursor: pointer;
 }
 .right-column-title {
   font-size: 12px;

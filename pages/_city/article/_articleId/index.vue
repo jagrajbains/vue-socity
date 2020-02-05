@@ -89,35 +89,58 @@ export default {
       const nextBtn = article.getElementsByClassName(
         'right-column-container'
       )[0]
+      const prevBtn = article.getElementsByClassName('left-column-container')[0]
+
       nextBtn.style.position = 'fixed'
       nextBtn.style.top = '-3px'
       nextBtn.style.right = '112px'
+
+      prevBtn.style.position = 'fixed'
+      prevBtn.style.top = '-3px'
+      prevBtn.style.left = '112px'
     },
     handleTopCrossedDown(_id) {
       const article = this.getArticleContainer(_id)
       const nextBtn = article.getElementsByClassName(
         'right-column-container'
       )[0]
+      const prevBtn = article.getElementsByClassName('left-column-container')[0]
+
       nextBtn.style.position = 'relative'
       nextBtn.style.right = '0px'
+
+      prevBtn.style.position = 'relative'
+      prevBtn.style.left = '0px'
     },
     handleBottomCrossedUp(_id) {
       const article = this.getArticleContainer(_id)
       const nextBtn = article.getElementsByClassName(
         'right-column-container'
       )[0]
+      const prevBtn = article.getElementsByClassName('left-column-container')[0]
+
       nextBtn.style.position = 'relative'
       nextBtn.style.top = `${nextBtn.parentElement.offsetHeight - 423}px`
       nextBtn.style.right = '0px'
+
+      prevBtn.style.position = 'relative'
+      prevBtn.style.top = `${prevBtn.parentElement.offsetHeight - 423}px`
+      prevBtn.style.left = '0px'
     },
     handleBottomCrossedDown(_id) {
       const article = this.getArticleContainer(_id)
       const nextBtn = article.getElementsByClassName(
         'right-column-container'
       )[0]
+      const prevBtn = article.getElementsByClassName('left-column-container')[0]
+
       nextBtn.style.position = 'fixed'
       nextBtn.style.top = '-3px'
       nextBtn.style.right = '112px'
+
+      prevBtn.style.position = 'fixed'
+      prevBtn.style.top = '-3px'
+      prevBtn.style.left = '112px'
     },
     nextArticle(isRelatedArticle = false, index) {
       if (!this.relatedArticles) {

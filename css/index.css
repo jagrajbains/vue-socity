@@ -10,3 +10,7 @@ html {
 .pt-75 {
   padding-top: 75px;
 }
+
+a, a:hover {
+  color: #13cb86;
+}
