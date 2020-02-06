@@ -298,6 +298,7 @@ export default {
   opacity: 0;
 }
 .left-column-container {
+  height: 300px !important;
   display: inline-block;
   justify-content: center;
   cursor: pointer;
@@ -341,7 +342,7 @@ export default {
   top: 0;
 }
 .stick-to-bottom {
-  bottom: 160px;
+  bottom: 135px;
 }
 .prev-btn-container {
   display: flex;
@@ -353,6 +354,7 @@ export default {
 }
 
 .right-column-container {
+  height: 300px !important;
   display: inline-block;
   justify-content: center;
   cursor: pointer;
