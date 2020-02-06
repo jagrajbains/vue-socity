@@ -91,13 +91,9 @@ export default {
       )[0]
       const prevBtn = article.getElementsByClassName('left-column-container')[0]
 
-      nextBtn.style.position = 'fixed'
-      nextBtn.style.top = '-3px'
-      nextBtn.style.right = '112px'
+      nextBtn.classList.add('sticky-right')
 
-      prevBtn.style.position = 'fixed'
-      prevBtn.style.top = '-3px'
-      prevBtn.style.left = '112px'
+      prevBtn.classList.add('sticky-right')
     },
     handleTopCrossedDown(_id) {
       const article = this.getArticleContainer(_id)
@@ -106,11 +102,9 @@ export default {
       )[0]
       const prevBtn = article.getElementsByClassName('left-column-container')[0]
 
-      nextBtn.style.position = 'relative'
-      nextBtn.style.right = '0px'
+      nextBtn.classList.remove('sticky-right')
 
-      prevBtn.style.position = 'relative'
-      prevBtn.style.left = '0px'
+      prevBtn.classList.remove('sticky-right')
     },
     handleBottomCrossedUp(_id) {
       const article = this.getArticleContainer(_id)
@@ -119,13 +113,11 @@ export default {
       )[0]
       const prevBtn = article.getElementsByClassName('left-column-container')[0]
 
-      nextBtn.style.position = 'relative'
-      nextBtn.style.top = `${nextBtn.parentElement.offsetHeight - 423}px`
-      nextBtn.style.right = '0px'
+      nextBtn.classList.remove('sticky-right')
+      nextBtn.classList.add('stick-to-bottom')
 
-      prevBtn.style.position = 'relative'
-      prevBtn.style.top = `${prevBtn.parentElement.offsetHeight - 423}px`
-      prevBtn.style.left = '0px'
+      prevBtn.classList.remove('sticky-right')
+      prevBtn.classList.add('stick-to-bottom')
     },
     handleBottomCrossedDown(_id) {
       const article = this.getArticleContainer(_id)
@@ -134,13 +126,10 @@ export default {
       )[0]
       const prevBtn = article.getElementsByClassName('left-column-container')[0]
 
-      nextBtn.style.position = 'fixed'
-      nextBtn.style.top = '-3px'
-      nextBtn.style.right = '112px'
-
-      prevBtn.style.position = 'fixed'
-      prevBtn.style.top = '-3px'
-      prevBtn.style.left = '112px'
+      nextBtn.classList.add('sticky-right')
+      nextBtn.classList.remove('stick-to-bottom')
+      prevBtn.classList.add('sticky-right')
+      prevBtn.classList.remove('stick-to-bottom')
     },
     nextArticle(isRelatedArticle = false, index) {
       if (!this.relatedArticles) {

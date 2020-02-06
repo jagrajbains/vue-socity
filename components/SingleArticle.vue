@@ -13,7 +13,7 @@
     <!-- article container -->
     <div class="row article-container">
       <!-- stuff to the left -->
-      <div :class="`col-lg-3 col-md-3`">
+      <div :class="`col-lg-3 col-md-3 prev-btn-container`">
         <transition name="fade">
           <div
             v-show="!isPrevDisabled"
@@ -297,11 +297,11 @@ export default {
 .fade-leave-to {
   opacity: 0;
 }
-
 .left-column-container {
-  display: flex;
+  display: inline-block;
   justify-content: center;
   cursor: pointer;
+  position: absolute;
 }
 .left-column-title {
   font-size: 12px;
@@ -336,10 +336,27 @@ export default {
   max-width: 115px;
   padding-top: 90px;
 }
-.right-column-container {
+.sticky-right {
+  position: fixed !important;
+  top: 0;
+}
+.stick-to-bottom {
+  bottom: 160px;
+}
+.prev-btn-container {
   display: flex;
   justify-content: center;
+}
+.next-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.right-column-container {
+  display: inline-block;
+  justify-content: center;
   cursor: pointer;
+  position: absolute;
 }
 .right-column-title {
   font-size: 12px;
