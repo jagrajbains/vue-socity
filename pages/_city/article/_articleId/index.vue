@@ -75,6 +75,7 @@ export default {
   },
   beforeDestroy() {
     this.$nuxt.$off('pushState')
+    window.removeEventListener('scroll', this.handleScroll)
     window.onpopstate = null
   },
   mounted() {
@@ -197,81 +198,7 @@ export default {
         }
       }
     },
-    nextArticleBtnHandler() {
-      // const { _id } = this.selectedArticle
-      // const selectedArticleContainer = document.querySelector(
-      //   `.single-article[data-id="${_id}"]`
-      // )
-      // if (selectedArticleContainer) {
-      //   const nextArticleBtn = selectedArticleContainer.getElementsByClassName(
-      //     'right-column-container'
-      //   )[0]
-      //   // console.log('offset top of next btn:', nextArticleBtn.offsetTop)
-      //   const nextBtnViewportRelativeTop = nextArticleBtn.getBoundingClientRect()
-      //     .top
-      //   // console.log('top relative to viewport is', nextBtnViewportRelativeTop)
-      //   // if next btn has been scrolled more than the page, make its position fixed
-      //   const initialTop = this.initialTopNextBtns[_id]
-      //   // initially when display is none, nextBtnViewportRelativeTop is 0
-      //   const nextBtnDocumentRelativeTop =
-      //     nextBtnViewportRelativeTop + window.pageYOffset
-      //   if (nextBtnViewportRelativeTop !== 0) {
-      //     if (
-      //       nextBtnViewportRelativeTop < 0 &&
-      //       window.pageYOffset > nextBtnViewportRelativeTop
-      //     ) {
-      //       // make it fixed!
-      //       nextArticleBtn.style.position = 'fixed'
-      //       nextArticleBtn.style.top = '150px'
-      //     } else if (
-      //       nextBtnDocumentRelativeTop <= initialTop &&
-      //       nextArticleBtn.style.position !== 'relative'
-      //     ) {
-      //       nextArticleBtn.style.position = 'relative'
-      //     }
-      //   }
-      //   // if (nextArticleBtn.offsetTop < window.pageYOffset) {
-      //   //   // increment marginTop
-      //   //   nextArticleBtn.style.position = 'fixed'
-      //   //   nextArticleBtn.style.top = '300px'
-      //   //   const selectedArticleHeight = selectedArticleContainer.getBoundingClientRect()
-      //   //     .height
-      //   //   if (
-      //   //     window.pageYOffset - selectedArticleContainer.offsetTop + 800 >=
-      //   //       selectedArticleHeight &&
-      //   //     nextArticleBtn.style.position === 'fixed'
-      //   //   ) {
-      //   //     nextArticleBtn.style.position = 'relative'
-      //   //     nextArticleBtn.style.top = `${window.pageYOffset -
-      //   //       nextArticleBtn.parentElement.offsetTop}px`
-      //   //     // `${window.pageYOffset -
-      //   //     //   selectedArticleHeight}px`
-      //   //   }
-      //   //   // if (
-      //   //   //   window.pageYOffset - selectedArticleContainer.offsetTop - 300 <=
-      //   //   //   selectedArticleHeight - 1000
-      //   //   // ) {
-      //   //   //   console.log(
-      //   //   //     window.pageYOffset,
-      //   //   //     selectedArticleContainer.offsetTop,
-      //   //   //     selectedArticleHeight
-      //   //   //   )
-      //   //   //   // nextArticleBtn.style.marginTop = `${window.pageYOffset -
-      //   //   //   //   selectedArticleContainer.offsetTop -
-      //   //   //   //   300}px`
-      //   //   // }
-      //   // }
-      //   // const nextArticleBtnTop = nextArticleBtn.getBoundingClientRect().top
-      //   // if (nextArticleBtnTop > 120) {
-      //   //   nextArticleBtn.style.marginTop = Math.max(
-      //   //     parseFloat(nextArticleBtn.style.marginTop),
-      //   //     0
-      //   //   )
-      //   // }
-      // }
-    },
     handleScroll() {
-      this.nextArticleBtnHandler()
       const articles = Array.from(document.querySelectorAll('.single-article'))
       const ratios = []
       for (const article of articles) {
