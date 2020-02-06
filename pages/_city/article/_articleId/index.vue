@@ -75,12 +75,33 @@ export default {
   },
   beforeDestroy() {
     this.$nuxt.$off('pushState')
+    window.onpopstate = null
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
+    window.onpopstate = this.handlePopState
   },
   middleware: 'cityCheck',
   methods: {
+    handlePopState() {
+      window.location.reload(true)
+      // const { pathname } = window.location
+      // const articleId = pathname.split('/')[pathname.split('/').length - 1]
+      // if (
+      //   articleId !== this.article.data.articleData._id &&
+      //   !this.relatedArticles?.find((r) => r.data.articleData._id === articleId)
+      // ) {
+      // } else {
+      //   $('html, body').animate(
+      //     {
+      //       scrollTop: document.querySelector(
+      //         `.single-article[data-id="${articleId}"]`
+      //       ).offsetTop
+      //     },
+      //     800
+      //   )
+      // }
+    },
     getArticleContainer(id) {
       return document.querySelector(`.single-article[data-id="${id}"]`)
     },
@@ -168,10 +189,12 @@ export default {
       if (this.article.data.articleData._id === article) {
         this.selectedArticle = this.article.data.articleData
       } else {
-        const relArticle = this.relatedArticles.find(
+        const relArticle = this.relatedArticles?.find(
           (r) => r.data.articleData._id === article
         )
-        this.selectedArticle = relArticle.data.articleData
+        if (relArticle) {
+          this.selectedArticle = relArticle?.data?.articleData
+        }
       }
     },
     nextArticleBtnHandler() {

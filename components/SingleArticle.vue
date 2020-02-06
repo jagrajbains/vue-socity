@@ -200,6 +200,9 @@ export default {
       }
     })
   },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
   methods: {
     imageClassAdder(img) {
       const w = img.naturalWidth || img.width
