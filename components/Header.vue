@@ -1,8 +1,8 @@
 <template>
   <div>
     <div ref="headerComponent" class="row header-container">
-      <div class="col-2 ham-menu">
-        nav
+      <div class="col-2 ham-menu" style="text-align: center;">
+        <font-awesome-icon :icon="['fas', 'bars']" />
       </div>
       <div class="col-lg-9 col-8 left-side">
         <div @click="$router.back()" class="back-btn">
@@ -195,7 +195,19 @@ export default {
     align-self: center;
   }
   .left-side {
-    justify-content: flex-start;
+    justify-content: center;
+  }
+  .logo {
+    left: -10px;
+  }
+  .city-names {
+    left: -6px;
+  }
+  #arrow {
+    left: 0px;
+  }
+  .right-side {
+    text-align: center;
   }
 }
 </style>
