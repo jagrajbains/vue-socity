@@ -75,12 +75,34 @@ export default {
   },
   beforeDestroy() {
     this.$nuxt.$off('pushState')
+    window.removeEventListener('scroll', this.handleScroll)
+    window.onpopstate = null
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
+    window.onpopstate = this.handlePopState
   },
   middleware: 'cityCheck',
   methods: {
+    handlePopState() {
+      window.location.reload(true)
+      // const { pathname } = window.location
+      // const articleId = pathname.split('/')[pathname.split('/').length - 1]
+      // if (
+      //   articleId !== this.article.data.articleData._id &&
+      //   !this.relatedArticles?.find((r) => r.data.articleData._id === articleId)
+      // ) {
+      // } else {
+      //   $('html, body').animate(
+      //     {
+      //       scrollTop: document.querySelector(
+      //         `.single-article[data-id="${articleId}"]`
+      //       ).offsetTop
+      //     },
+      //     800
+      //   )
+      // }
+    },
     getArticleContainer(id) {
       return document.querySelector(`.single-article[data-id="${id}"]`)
     },
@@ -91,13 +113,9 @@ export default {
       )[0]
       const prevBtn = article.getElementsByClassName('left-column-container')[0]
 
-      nextBtn.style.position = 'fixed'
-      nextBtn.style.top = '-3px'
-      nextBtn.style.right = '112px'
+      nextBtn.classList.add('sticky-right')
 
-      prevBtn.style.position = 'fixed'
-      prevBtn.style.top = '-3px'
-      prevBtn.style.left = '112px'
+      prevBtn.classList.add('sticky-right')
     },
     handleTopCrossedDown(_id) {
       const article = this.getArticleContainer(_id)
@@ -106,11 +124,9 @@ export default {
       )[0]
       const prevBtn = article.getElementsByClassName('left-column-container')[0]
 
-      nextBtn.style.position = 'relative'
-      nextBtn.style.right = '0px'
+      nextBtn.classList.remove('sticky-right')
 
-      prevBtn.style.position = 'relative'
-      prevBtn.style.left = '0px'
+      prevBtn.classList.remove('sticky-right')
     },
     handleBottomCrossedUp(_id) {
       const article = this.getArticleContainer(_id)
@@ -119,13 +135,11 @@ export default {
       )[0]
       const prevBtn = article.getElementsByClassName('left-column-container')[0]
 
-      nextBtn.style.position = 'relative'
-      nextBtn.style.top = `${nextBtn.parentElement.offsetHeight - 423}px`
-      nextBtn.style.right = '0px'
+      nextBtn.classList.remove('sticky-right')
+      nextBtn.classList.add('stick-to-bottom')
 
-      prevBtn.style.position = 'relative'
-      prevBtn.style.top = `${prevBtn.parentElement.offsetHeight - 423}px`
-      prevBtn.style.left = '0px'
+      prevBtn.classList.remove('sticky-right')
+      prevBtn.classList.add('stick-to-bottom')
     },
     handleBottomCrossedDown(_id) {
       const article = this.getArticleContainer(_id)
@@ -134,13 +148,10 @@ export default {
       )[0]
       const prevBtn = article.getElementsByClassName('left-column-container')[0]
 
-      nextBtn.style.position = 'fixed'
-      nextBtn.style.top = '-3px'
-      nextBtn.style.right = '112px'
-
-      prevBtn.style.position = 'fixed'
-      prevBtn.style.top = '-3px'
-      prevBtn.style.left = '112px'
+      nextBtn.classList.add('sticky-right')
+      nextBtn.classList.remove('stick-to-bottom')
+      prevBtn.classList.add('sticky-right')
+      prevBtn.classList.remove('stick-to-bottom')
     },
     nextArticle(isRelatedArticle = false, index) {
       if (!this.relatedArticles) {
@@ -179,87 +190,15 @@ export default {
       if (this.article.data.articleData._id === article) {
         this.selectedArticle = this.article.data.articleData
       } else {
-        const relArticle = this.relatedArticles.find(
+        const relArticle = this.relatedArticles?.find(
           (r) => r.data.articleData._id === article
         )
-        this.selectedArticle = relArticle.data.articleData
+        if (relArticle) {
+          this.selectedArticle = relArticle?.data?.articleData
+        }
       }
     },
-    nextArticleBtnHandler() {
-      // const { _id } = this.selectedArticle
-      // const selectedArticleContainer = document.querySelector(
-      //   `.single-article[data-id="${_id}"]`
-      // )
-      // if (selectedArticleContainer) {
-      //   const nextArticleBtn = selectedArticleContainer.getElementsByClassName(
-      //     'right-column-container'
-      //   )[0]
-      //   // console.log('offset top of next btn:', nextArticleBtn.offsetTop)
-      //   const nextBtnViewportRelativeTop = nextArticleBtn.getBoundingClientRect()
-      //     .top
-      //   // console.log('top relative to viewport is', nextBtnViewportRelativeTop)
-      //   // if next btn has been scrolled more than the page, make its position fixed
-      //   const initialTop = this.initialTopNextBtns[_id]
-      //   // initially when display is none, nextBtnViewportRelativeTop is 0
-      //   const nextBtnDocumentRelativeTop =
-      //     nextBtnViewportRelativeTop + window.pageYOffset
-      //   if (nextBtnViewportRelativeTop !== 0) {
-      //     if (
-      //       nextBtnViewportRelativeTop < 0 &&
-      //       window.pageYOffset > nextBtnViewportRelativeTop
-      //     ) {
-      //       // make it fixed!
-      //       nextArticleBtn.style.position = 'fixed'
-      //       nextArticleBtn.style.top = '150px'
-      //     } else if (
-      //       nextBtnDocumentRelativeTop <= initialTop &&
-      //       nextArticleBtn.style.position !== 'relative'
-      //     ) {
-      //       nextArticleBtn.style.position = 'relative'
-      //     }
-      //   }
-      //   // if (nextArticleBtn.offsetTop < window.pageYOffset) {
-      //   //   // increment marginTop
-      //   //   nextArticleBtn.style.position = 'fixed'
-      //   //   nextArticleBtn.style.top = '300px'
-      //   //   const selectedArticleHeight = selectedArticleContainer.getBoundingClientRect()
-      //   //     .height
-      //   //   if (
-      //   //     window.pageYOffset - selectedArticleContainer.offsetTop + 800 >=
-      //   //       selectedArticleHeight &&
-      //   //     nextArticleBtn.style.position === 'fixed'
-      //   //   ) {
-      //   //     nextArticleBtn.style.position = 'relative'
-      //   //     nextArticleBtn.style.top = `${window.pageYOffset -
-      //   //       nextArticleBtn.parentElement.offsetTop}px`
-      //   //     // `${window.pageYOffset -
-      //   //     //   selectedArticleHeight}px`
-      //   //   }
-      //   //   // if (
-      //   //   //   window.pageYOffset - selectedArticleContainer.offsetTop - 300 <=
-      //   //   //   selectedArticleHeight - 1000
-      //   //   // ) {
-      //   //   //   console.log(
-      //   //   //     window.pageYOffset,
-      //   //   //     selectedArticleContainer.offsetTop,
-      //   //   //     selectedArticleHeight
-      //   //   //   )
-      //   //   //   // nextArticleBtn.style.marginTop = `${window.pageYOffset -
-      //   //   //   //   selectedArticleContainer.offsetTop -
-      //   //   //   //   300}px`
-      //   //   // }
-      //   // }
-      //   // const nextArticleBtnTop = nextArticleBtn.getBoundingClientRect().top
-      //   // if (nextArticleBtnTop > 120) {
-      //   //   nextArticleBtn.style.marginTop = Math.max(
-      //   //     parseFloat(nextArticleBtn.style.marginTop),
-      //   //     0
-      //   //   )
-      //   // }
-      // }
-    },
     handleScroll() {
-      this.nextArticleBtnHandler()
       const articles = Array.from(document.querySelectorAll('.single-article'))
       const ratios = []
       for (const article of articles) {
