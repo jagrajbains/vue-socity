@@ -1,6 +1,6 @@
 <template>
   <div class="overFXN">
-    <Header />
+    <Header v-if="isHomeroute()" />
     <div class="main-body-wrapper">
       <nuxt />
     </div>
@@ -13,6 +13,17 @@ import Header from '~/components/Header'
 export default {
   components: {
     Header
+  },
+  data() {
+    return {
+      isHome: false
+    }
+  },
+  methods: {
+    isHomeroute() {
+      this.isHome = this.$route.params.city !== undefined
+      return this.isHome
+    }
   }
 }
 </script>
