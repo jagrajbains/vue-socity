@@ -281,6 +281,7 @@ export default {
           this.$emit('articleReadDone')
         }
       }
+      if (window.innerWidth < 768) return
       // check if top-sep crossed viewport top
       const topSepTop = this.$refs.topSeparator.getBoundingClientRect().top
       if (topSepTop < 0 && !this.isTopCrossed) {
