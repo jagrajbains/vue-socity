@@ -66,7 +66,7 @@
                   `https://www.facebook.com/sharer/sharer.php?u=so.city/${articleData.primaryCity}/article/${articleData._id}`
                 "
                 target="_blank"
-                >Share on facebook</a
+                >Share</a
               >
             </p>
           </div>
@@ -75,7 +75,7 @@
               :icon="['fas', 'bookmark']"
               style="align-self: center; color: white"
             />
-            <p>Bookmark this article</p>
+            <p>Bookmark</p>
           </div>
         </div>
         <!-- Mobile Share Container -->
@@ -579,7 +579,7 @@ export default {
   color: #404040;
 }
 .fb-container {
-  width: 229px;
+  width: 150px;
   height: 48px;
   border-radius: 24px;
   background-color: #1976d2;
@@ -596,7 +596,7 @@ export default {
   text-decoration: none;
 }
 .bkm-container {
-  width: 261px;
+  width: 150px;
   height: 48px;
   border-radius: 24px;
   background-color: #393939;
@@ -648,7 +648,7 @@ export default {
 }
 @media only screen and (min-width: 280px) and (max-width: 576px) {
   .main-blur-img-container {
-    height: 25vh;
+    height: 250px;
   }
   .header-img-container {
     top: 0px;
@@ -671,10 +671,16 @@ export default {
     font-size: 26px;
     line-height: 1.29;
   }
+  .article-content h3 {
+    font-size: 22px;
+  }
+  .follow-btn {
+    padding: 6px 28px;
+  }
   .blur-main-content-img-container {
     margin-top: 25px;
     margin-bottom: 15px;
-    height: 28vh;
+    height: 300px;
   }
   .main-content-img-container {
     top: 0px;
@@ -692,16 +698,16 @@ export default {
     bottom: 41px;
   }
   .fb-container {
-    width: 200px;
+    width: 125px;
   }
   .fb-container p {
     font-size: 12px;
   }
   .bkm-container {
-    width: 200px;
+    width: 125px;
   }
   .bkm-container p {
-    font-size: 14px;
+    font-size: 13px;
   }
   /* .mbl-left {
     width: 35%;
