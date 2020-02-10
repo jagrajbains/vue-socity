@@ -210,4 +210,25 @@ export default {
     text-align: center;
   }
 }
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .ham-menu {
+    display: block;
+    align-self: center;
+  }
+  .left-side {
+    justify-content: center;
+  }
+  .logo {
+    left: -10px;
+  }
+  .city-names {
+    left: -6px;
+  }
+  #arrow {
+    left: 0px;
+  }
+  .right-side {
+    text-align: center;
+  }
+}
 </style>
