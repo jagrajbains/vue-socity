@@ -79,13 +79,10 @@ export default {
       this.showDropdown = !this.showDropdown
     },
     toggleDarkMode() {
-      console.log(this.isDark)
       this.isDark = !this.isDark
       if (this.isDark) {
-        console.log('next', this.isDark)
         document.body.classList.add('dark-theme')
       } else {
-        console.log('nnnn', this.isDark)
         document.body.classList.remove('dark-theme')
       }
     },
@@ -135,6 +132,12 @@ export default {
   margin-right: 0px;
   margin-left: 0px;
   box-shadow: 0px 0px 3px 0 #000000;
+  transition: background-color 0.25s ease-in;
+}
+
+body.dark-theme .header-container {
+  background-color: #273142;
+  transition: background-color 0.25s ease-out;
 }
 .back-btn {
   cursor: pointer;
@@ -147,11 +150,17 @@ export default {
   transform: rotate(180deg);
   height: 100%;
 }
+body.dark-theme .back-btn img {
+  color: white;
+}
 .city-names {
   position: relative;
   left: 32px;
   align-self: center;
   font-size: 14px;
+}
+body.dark-theme .city-names {
+  color: white;
 }
 #arrow {
   cursor: pointer;
@@ -171,6 +180,9 @@ export default {
 }
 .write-a-post:hover {
   color: #686868;
+}
+body.dark-theme .write-a-post {
+  color: white;
 }
 .search {
   cursor: pointer;
