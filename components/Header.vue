@@ -19,6 +19,10 @@
         </div>
       </div>
       <div class="col-lg-3 col-2 right-side">
+        <label class="switch-wrap">
+          <input type="checkbox" />
+          <div @click="toggleDarkMode" class="switch"></div>
+        </label>
         <div class="write-a-post">Write A Post</div>
         <div class="search">
           <img src="../assets/search.svg" />
@@ -45,7 +49,8 @@ export default {
   data() {
     return {
       city: this.$route.params.city,
-      showDropdown: false
+      showDropdown: false,
+      isDark: false
     }
   },
   computed: {
@@ -72,6 +77,17 @@ export default {
   methods: {
     toggleDropdown() {
       this.showDropdown = !this.showDropdown
+    },
+    toggleDarkMode() {
+      console.log(this.isDark)
+      this.isDark = !this.isDark
+      if (this.isDark) {
+        console.log('next', this.isDark)
+        document.body.classList.add('dark-theme')
+      } else {
+        console.log('nnnn', this.isDark)
+        document.body.classList.remove('dark-theme')
+      }
     },
     changeCity(city) {
       this.toggleDropdown()
@@ -180,6 +196,39 @@ export default {
 .sticky {
   position: fixed;
   top: 0;
+}
+.switch-wrap {
+  cursor: pointer;
+  background: #15273b;
+  padding: 7px;
+  width: 60px;
+  height: 35px;
+  border-radius: 33.5px;
+}
+.switch-wrap input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.switch {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 0fr 1fr 1fr;
+  transition: 0.2s;
+}
+.switch::after {
+  content: '';
+  border-radius: 50%;
+  background: #ccc;
+  grid-column: 2;
+  transition: background 0.2s;
+}
+input:checked + .switch {
+  grid-template-columns: 1fr 1fr 0fr;
+}
+input:checked + .switch::after {
+  background-color: #52cf71;
 }
 @media only screen and (max-width: 768px) {
   .back-btn {

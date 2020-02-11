@@ -11,3 +11,7 @@
 a, a:hover {
   color: #13cb86;
 }
+
+.dark-theme {
+  background-color: #273142;
+}
