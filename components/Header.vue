@@ -6,7 +6,7 @@
       </div>
       <div class="col-lg-9 col-8 left-side">
         <div @click="$router.back()" class="back-btn">
-          <img src="../assets/arrow.svg" />
+          <font-awesome-icon :icon="['fas', 'chevron-left']" />
         </div>
         <div class="logo">
           <nuxt-link to="/">
@@ -15,7 +15,7 @@
         </div>
         <div class="city-names">{{ cityName }}</div>
         <div id="arrow" @click="toggleDropdown">
-          <img src="../assets/arrow.svg" />
+          <font-awesome-icon :icon="['fas', 'chevron-down']" />
         </div>
       </div>
       <div class="col-lg-3 col-2 right-side">
@@ -25,7 +25,7 @@
         </label>
         <div class="write-a-post">Write A Post</div>
         <div class="search">
-          <img src="../assets/search.svg" />
+          <font-awesome-icon :icon="['fas', 'search']" />
         </div>
       </div>
     </div>
@@ -137,6 +137,7 @@ export default {
 
 body.dark-theme .header-container {
   background-color: #273142;
+  box-shadow: 0px 0px 3px 0 lightgray;
   transition: background-color 0.25s ease-out;
 }
 .back-btn {
@@ -145,6 +146,9 @@ body.dark-theme .header-container {
   height: 14px;
   position: relative;
   top: 10px;
+}
+body.dark-theme .back-btn {
+  color: white;
 }
 .back-btn img {
   transform: rotate(180deg);
@@ -166,7 +170,11 @@ body.dark-theme .city-names {
   cursor: pointer;
   position: relative;
   left: 36px;
+  top: 2px;
   align-self: center;
+}
+body.dark-theme #arrow {
+  color: white;
 }
 #arrow img {
   width: 12px;
@@ -176,7 +184,7 @@ body.dark-theme .city-names {
 .write-a-post {
   cursor: pointer;
   font-size: 14px;
-  padding-top: 3px;
+  padding-top: 8px;
 }
 .write-a-post:hover {
   color: #686868;
@@ -186,6 +194,11 @@ body.dark-theme .write-a-post {
 }
 .search {
   cursor: pointer;
+  position: relative;
+  top: 7px;
+}
+body.dark-theme .search {
+  color: white;
 }
 .search:hover {
   color: #686868;
@@ -210,11 +223,13 @@ body.dark-theme .write-a-post {
   top: 0;
 }
 .switch-wrap {
+  position: relative;
+  top: 5px;
   cursor: pointer;
   background: #15273b;
   padding: 7px;
-  width: 60px;
-  height: 35px;
+  width: 38px;
+  height: 26px;
   border-radius: 33.5px;
 }
 .switch-wrap input {
@@ -249,11 +264,23 @@ input:checked + .switch::after {
   .write-a-post {
     display: none;
   }
+  body.dark-theme .ham-menu {
+    color: white;
+  }
 }
 @media only screen and (min-width: 280px) and (max-width: 576px) {
   .ham-menu {
     display: block;
     align-self: center;
+  }
+  .switch-wrap {
+    width: 70px;
+    right: 20px;
+    padding: 5px;
+    height: 22px;
+  }
+  .search {
+    top: 5px;
   }
   .left-side {
     justify-content: center;
