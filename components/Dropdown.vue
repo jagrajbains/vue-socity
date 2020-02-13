@@ -3,7 +3,7 @@
     <div
       v-for="city in cities"
       :key="city.key"
-      class="col-md-1 text-center city-name city-choose"
+      class="col-md-1 col-4 text-center city-name city-choose"
     >
       <div
         :class="
@@ -96,5 +96,12 @@ export default {
 a {
   text-decoration: none;
   color: black;
+}
+@media only screen and (max-width: 768px) {
+  .dropdown {
+    left: 15px;
+    width: 100%;
+    height: 100%;
+  }
 }
 </style>

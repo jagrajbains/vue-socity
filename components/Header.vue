@@ -1,7 +1,10 @@
 <template>
   <div>
     <div ref="headerComponent" class="row header-container">
-      <div class="col-lg-9 left-side">
+      <div class="col-2 ham-menu" style="text-align: center;">
+        <font-awesome-icon :icon="['fas', 'bars']" />
+      </div>
+      <div class="col-lg-9 col-8 left-side">
         <div @click="$router.back()" class="back-btn">
           <img src="../assets/arrow.svg" />
         </div>
@@ -15,7 +18,7 @@
           <img src="../assets/arrow.svg" />
         </div>
       </div>
-      <div class="col-lg-3 right-side">
+      <div class="col-lg-3 col-2 right-side">
         <div class="write-a-post">Write A Post</div>
         <div class="search">
           <img src="../assets/search.svg" />
@@ -93,6 +96,9 @@ export default {
 </script>
 
 <style scoped>
+.ham-menu {
+  display: none;
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
@@ -178,5 +184,55 @@ export default {
 .sticky {
   position: fixed;
   top: 0;
+}
+@media only screen and (max-width: 768px) {
+  .back-btn {
+    display: none;
+  }
+  .write-a-post {
+    display: none;
+  }
+}
+@media only screen and (min-width: 280px) and (max-width: 576px) {
+  .ham-menu {
+    display: block;
+    align-self: center;
+  }
+  .left-side {
+    justify-content: center;
+  }
+  .logo {
+    left: -10px;
+  }
+  .city-names {
+    left: -6px;
+  }
+  #arrow {
+    left: 0px;
+  }
+  .right-side {
+    text-align: center;
+  }
+}
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .ham-menu {
+    display: block;
+    align-self: center;
+  }
+  .left-side {
+    justify-content: center;
+  }
+  .logo {
+    left: -10px;
+  }
+  .city-names {
+    left: -6px;
+  }
+  #arrow {
+    left: 0px;
+  }
+  .right-side {
+    text-align: center;
+  }
 }
 </style>

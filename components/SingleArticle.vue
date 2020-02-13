@@ -66,7 +66,7 @@
                   `https://www.facebook.com/sharer/sharer.php?u=so.city/${articleData.primaryCity}/article/${articleData._id}`
                 "
                 target="_blank"
-                >Share on facebook</a
+                >Share</a
               >
             </p>
           </div>
@@ -75,9 +75,40 @@
               :icon="['fas', 'bookmark']"
               style="align-self: center; color: white"
             />
-            <p>Bookmark this article</p>
+            <p>Bookmark</p>
           </div>
         </div>
+        <!-- Mobile Share Container -->
+        <!-- <div class="mbl-share-container">
+          <div class="mbl-left">
+            <div class="mbl-fb-container">
+              <a
+                :href="
+                  `https://www.facebook.com/sharer/sharer.php?u=so.city/${articleData.primaryCity}/article/${articleData._id}`
+                "
+                target="_blank"
+                ><img src="../assets/fb.svg"
+              /></a>
+            </div>
+            <div class="mbl-wapp-container">
+              <a
+                :href="
+                  `https://www.facebook.com/sharer/sharer.php?u=so.city/${articleData.primaryCity}/article/${articleData._id}`
+                "
+                target="_blank"
+                ><img src="../assets/wapp.svg"
+              /></a>
+            </div>
+          </div>
+          <div class="mbl-right">
+            <div class="mbl-bkm-container">
+              <div class="mbl-bkm">
+                <img src="../assets/bookmark_icon.svg" />
+                <p>Bookmark</p>
+              </div>
+            </div>
+          </div>
+        </div> -->
         <!-- Next article -->
         <div v-if="!isNextDisabled">
           <div class="article-border"></div>
@@ -548,7 +579,7 @@ export default {
   color: #404040;
 }
 .fb-container {
-  width: 229px;
+  width: 150px;
   height: 48px;
   border-radius: 24px;
   background-color: #1976d2;
@@ -565,7 +596,7 @@ export default {
   text-decoration: none;
 }
 .bkm-container {
-  width: 261px;
+  width: 150px;
   height: 48px;
   border-radius: 24px;
   background-color: #393939;
@@ -584,5 +615,245 @@ export default {
   padding-top: 35px;
   padding-bottom: 65px;
   justify-content: space-evenly;
+}
+/* .mbl-share-container {
+  display: none;
+} */
+@media only screen and (max-width: 768px) {
+  .main-blur-img {
+    display: none;
+  }
+  .left-column-container {
+    display: none;
+  }
+  .right-column-container {
+    display: none;
+  }
+  .blur-main-content-img {
+    filter: blur(15px) brightness(0.5);
+  }
+  /* .mbl-share-container {
+    display: flex;
+    position: fixed;
+    bottom: 0px;
+    background-color: white;
+    border: 1px solid black;
+    left: 0px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .share-container {
+    display: none;
+  } */
+}
+@media only screen and (min-width: 280px) and (max-width: 576px) {
+  .main-blur-img-container {
+    height: 250px;
+  }
+  .header-img-container {
+    top: 0px;
+    bottom: 0px;
+    left: 0%;
+    transform: none;
+  }
+  .header-img {
+    margin-top: 0px;
+    object-fit: fill;
+    width: 100%;
+  }
+  .article-container {
+    padding: 20px;
+  }
+  .title-container {
+    margin-top: 0px;
+  }
+  .title-text {
+    font-size: 26px;
+    line-height: 1.29;
+  }
+  .article-content h3 {
+    font-size: 22px;
+  }
+  .follow-btn {
+    padding: 6px 28px;
+  }
+  .blur-main-content-img-container {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    height: 300px;
+  }
+  .main-content-img-container {
+    top: 0px;
+    bottom: 0px;
+    left: 0%;
+    transform: none;
+    width: 100%;
+  }
+  .main-content-landscape-img {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+  }
+  .article-border-pointer {
+    bottom: 41px;
+  }
+  .fb-container {
+    width: 125px;
+  }
+  .fb-container p {
+    font-size: 12px;
+  }
+  .bkm-container {
+    width: 125px;
+  }
+  .bkm-container p {
+    font-size: 13px;
+  }
+  /* .mbl-left {
+    width: 35%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .mbl-right {
+    width: 65%;
+    display: flex;
+  }
+  .mbl-wapp-container {
+    display: flex;
+    width: 40px;
+    height: 63px;
+  }
+  .mbl-wapp-container a {
+    width: 100%;
+    height: 100%;
+  }
+  .mbl-wapp-container img {
+    width: 100%;
+    height: 100%;
+  }
+  .mbl-fb-container {
+    display: flex;
+    width: 40px;
+    height: 63px;
+  }
+  .mbl-fb-container a {
+    width: 100%;
+    height: 100%;
+  }
+  .mbl-fb-container img {
+    width: 100%;
+    height: 100%;
+  }
+  .mbl-bkm-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding-right: 25px;
+  }*/
+}
+@media only screen and (min-width: 577px) and (max-width: 768px) {
+  .main-blur-img-container {
+    height: 250px;
+  }
+  .header-img-container {
+    top: 0px;
+    bottom: 0px;
+    left: 0%;
+    transform: none;
+  }
+  .header-img {
+    margin-top: 0px;
+    object-fit: fill;
+    width: 100%;
+  }
+  .article-container {
+    padding: 20px;
+  }
+  .title-container {
+    margin-top: 0px;
+  }
+  .title-text {
+    font-size: 26px;
+    line-height: 1.29;
+  }
+  .article-content h3 {
+    font-size: 22px;
+  }
+  .follow-btn {
+    padding: 6px 28px;
+  }
+  .blur-main-content-img-container {
+    margin-top: 25px;
+    margin-bottom: 15px;
+    height: 300px;
+  }
+  .main-content-img-container {
+    top: 0px;
+    bottom: 0px;
+    left: 0%;
+    transform: none;
+    width: 100%;
+  }
+  .main-content-landscape-img {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+  }
+  .article-border-pointer {
+    bottom: 41px;
+  }
+  .fb-container {
+    width: 125px;
+  }
+  .fb-container p {
+    font-size: 12px;
+  }
+  .bkm-container {
+    width: 125px;
+  }
+  .bkm-container p {
+    font-size: 13px;
+  }
+  /* .mbl-left {
+    width: 35%;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .mbl-right {
+    width: 65%;
+    display: flex;
+  }
+  .mbl-wapp-container {
+    display: flex;
+    width: 40px;
+    height: 63px;
+  }
+  .mbl-wapp-container a {
+    width: 100%;
+    height: 100%;
+  }
+  .mbl-wapp-container img {
+    width: 100%;
+    height: 100%;
+  }
+  .mbl-fb-container {
+    display: flex;
+    width: 40px;
+    height: 63px;
+  }
+  .mbl-fb-container a {
+    width: 100%;
+    height: 100%;
+  }
+  .mbl-fb-container img {
+    width: 100%;
+    height: 100%;
+  }
+  .mbl-bkm-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    padding-right: 25px;
+  }*/
 }
 </style>
