@@ -77,11 +77,15 @@ export default {
     handleScroll() {
       if (window.pageYOffset <= this.initialHeaderOffset) {
         this.$refs.headerComponent.classList.remove('sticky')
-        this.mainBodyWrapper.classList.remove('pt-75')
+        if (this.mainBodyWrapper) {
+          this.mainBodyWrapper.classList.remove('pt-75')
+        }
       }
       if (window.pageYOffset > this.$refs.headerComponent.offsetTop) {
         this.$refs.headerComponent.classList.add('sticky')
-        this.mainBodyWrapper.classList.add('pt-75')
+        if (this.mainBodyWrapper) {
+          this.mainBodyWrapper.classList.add('pt-75')
+        }
       }
     }
   }

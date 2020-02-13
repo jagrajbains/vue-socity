@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Header renders with dropdown correctly 1`] = `
+<div>
+  <div class="row header-container">
+    <div class="col-lg-9 left-side">
+      <div class="back-btn"><img src="../assets/arrow.svg"></div>
+      <div class="logo"><a><img src="../assets/so_logo.svg"></a></div>
+      <div class="city-names">Delhi</div>
+      <div id="arrow"><img src="../assets/arrow.svg"></div>
+    </div>
+    <div class="col-lg-3 right-side">
+      <div class="write-a-post">Write A Post</div>
+      <div class="search"><img src="../assets/search.svg"></div>
+    </div>
+  </div>
+  <dropdown-stub name="fade"></dropdown-stub>
+</div>
+`;
+
+exports[`Header renders properly 1`] = `
+<div>
+  <div class="row header-container">
+    <div class="col-lg-9 left-side">
+      <div class="back-btn"><img src="../assets/arrow.svg"></div>
+      <div class="logo"><a><img src="../assets/so_logo.svg"></a></div>
+      <div class="city-names">Delhi</div>
+      <div id="arrow"><img src="../assets/arrow.svg"></div>
+    </div>
+    <div class="col-lg-3 right-side">
+      <div class="write-a-post">Write A Post</div>
+      <div class="search"><img src="../assets/search.svg"></div>
+    </div>
+  </div>
+  <!---->
+</div>
+`;
