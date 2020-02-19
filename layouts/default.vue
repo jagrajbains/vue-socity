@@ -1,7 +1,11 @@
 <template>
   <div class="overFXN">
-    <Header v-if="isHomeroute()" />
-    <div class="main-body-wrapper">
+    <Header
+      v-if="isHomeroute()"
+      @addPaddingTop="addPaddingTop"
+      @removePaddingTop="removePaddingTop"
+    />
+    <div ref="mainBodyWrapper" class="main-body-wrapper">
       <nuxt />
     </div>
   </div>
@@ -23,6 +27,12 @@ export default {
     isHomeroute() {
       this.isHome = this.$route.name === 'index'
       return !this.isHome
+    },
+    addPaddingTop() {
+      this.$refs.mainBodyWrapper.classList.add('pt-75')
+    },
+    removePaddingTop() {
+      this.$refs.mainBodyWrapper.classList.remove('pt-75')
     }
   }
 }

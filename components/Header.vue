@@ -67,7 +67,6 @@ export default {
     }
   },
   mounted() {
-    this.mainBodyWrapper = document.querySelector('.main-body-wrapper')
     this.initialHeaderOffset = this.$refs.headerComponent.offsetTop
 
     window.addEventListener('scroll', this.handleScroll)
@@ -93,11 +92,11 @@ export default {
     handleScroll() {
       if (window.pageYOffset <= this.initialHeaderOffset) {
         this.$refs.headerComponent.classList.remove('sticky')
-        this.mainBodyWrapper.classList.remove('pt-75')
+        this.$emit('removePaddingTop')
       }
       if (window.pageYOffset > this.$refs.headerComponent.offsetTop) {
         this.$refs.headerComponent.classList.add('sticky')
-        this.mainBodyWrapper.classList.add('pt-75')
+        this.$emit('addPaddingTop')
       }
     }
   }
