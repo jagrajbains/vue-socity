@@ -20,8 +20,8 @@
       </div>
       <div class="col-lg-3 col-2 right-side">
         <label class="switch-wrap">
-          <input type="checkbox" />
-          <div @click="toggleDarkMode" class="switch"></div>
+          <input ref="darkModeSwitch" @click="toggleDarkMode" type="checkbox" />
+          <div class="switch"></div>
         </label>
         <div class="write-a-post">Write A Post</div>
         <div class="search">
@@ -72,6 +72,8 @@ export default {
     window.addEventListener('scroll', this.handleScroll)
 
     this.handleScroll()
+    this.isDark = localStorage.getItem('theme') === 'dark'
+    this.$refs.darkModeSwitch.checked = this.isDark
   },
   methods: {
     toggleDropdown() {
@@ -79,6 +81,7 @@ export default {
     },
     toggleDarkMode() {
       this.isDark = !this.isDark
+      localStorage.setItem('theme', this.isDark ? 'dark' : 'light')
       if (this.isDark) {
         document.body.classList.add('dark-theme')
       } else {
