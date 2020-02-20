@@ -11,3 +11,13 @@
 a, a:hover {
   color: #13cb86;
 }
+
+body {
+  background-color: white;
+  transition: background-color 0.25s ease-in;
+}
+
+.dark-theme {
+  background-color: #273142;
+  transition: background-color 0.25s ease-out;
+}
